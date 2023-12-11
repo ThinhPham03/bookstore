@@ -90,7 +90,7 @@ VALUES
 (1, 3, 1),
 (1, 5, 3);
 
-INSERT INTO DonHang (IDNguoiDat, ThoiGianDa, DaXacNhan) VALUES (2, '2023-02-10 12:45:00', false);
+INSERT INTO DonHang (IDNguoiDat, ThoiGianDat, DaXacNhan) VALUES (2, '2023-02-10 12:45:00', false);
 INSERT INTO ChiTietDonHang (MaDonHang, IDSach, SoLuong)
 VALUES 
 (2, 2, 1),
