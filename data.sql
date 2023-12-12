@@ -3,7 +3,8 @@ use data_book;
 
 CREATE TABLE TheLoaiSach(
     ID INT AUTO_INCREMENT PRIMARY KEY,
-    Ten VARCHAR(100)
+    Ten VARCHAR(100),
+    MieuTa Text
 );
 
 CREATE TABLE Sach(
@@ -50,6 +51,7 @@ CREATE TABLE DonHang (
     IDNguoiDat INT,
     ThoiGianDat datetime,
     DaXacNhan bool,
+    LuuY Text,
     FOREIGN KEY (IDNguoiDat) REFERENCES TaiKhoan(ID)
 );
 
