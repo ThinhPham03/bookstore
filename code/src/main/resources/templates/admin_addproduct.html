@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="icon" href="/img/logo/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src='/js/admin.js'></script>
+    <title>TikiTaka.com - Admin</title>
+</head>
+
+<body>
+    <div class="header">
+        <nav class="nav">
+            <div class="menu-icon" onclick="toggleSidebar()">
+                <i class="toggle-icon fa-solid fa-bars" id="toggleIcon"></i>
+            </div>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Tìm kiếm ...">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <a href="/trangchu"><img src="/img/logo/logo.png" alt="" class="logo"></a>
+        </nav>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li class="btn-close-sidebar" onclick="closeSidebar()"><i class="fa-solid fa-x"></i></li>
+            <li><a href="#" class="sidebar-link" onclick="goToAdminHome()"><i class="fa-solid fa-home"></i> Trang
+                chủ Admin</a></li>
+            <li><a href="#m-product" class="sidebar-link active" onclick="switchContent('sanpham', event)"><i
+                        class="fa-brands fa-shopify"></i> Quản lý sản
+                    phẩm</a></li>
+            <li><a href="#m-order" class="sidebar-link" onclick="switchContent('donhang', event)"><i
+                        class="fa-solid fa-box"></i>
+                    Quản lý đơn hàng</a></li>
+            <li><a href="#m-account" class="sidebar-link" onclick="switchContent('taikhoan', event)"><i
+                        class="fa-solid fa-users"></i> Quản lý tài khoản</a></li>
+        </ul>
+    </div>
+
+    <div class="container-add">
+        <h2>Thêm sản phẩm</h2>
+        <form action="" class="form-container" method="post">
+            <div class="form-group">
+                <label for="add_productCode">Mã Sản Phẩm:</label>
+                <input type="text" id="add_productCode" class="add_product-code" value="" required
+                    placeholder="Nhập mã sản phẩm">
+            </div>
+            <div class="form-group">
+                <label for="add_supplier">Nhà Cung Cấp:</label>
+                <input type="text" id="add_supplier" class="add_supplier" value="" required
+                    placeholder="Nhập nhà cung cấp">
+            </div>
+            <div class="form-group">
+                <label for="add_price">Giá:</label>
+                <input type="text" id="add_price" class="add_price" value="" required placeholder="Nhập giá">
+            </div>
+            <div class="form-group">
+                <label for="add_author">Tác Giả:</label>
+                <input type="text" id="add_author" class="add_author" value="" required placeholder="Nhập tác giả">
+            </div>
+            <div class="form-group">
+                <label for="add_weight">Trọng Lượng:</label>
+                <input type="text" id="add_weight" class="add_weight" value="" required placeholder="Nhập trọng lượng">
+            </div>
+            <div class="form-group">
+                <label for="add_size">Kích Thước:</label>
+                <input type="text" id="add_size" class="add_size" value="" placeholder="Nhập kích thước" required
+                    placeholder="Nhập kích thước">
+            </div>
+            <div class="form-group">
+                <label for="add_image">Hình Ảnh:</label>
+                <input type="file" id="add_image" class="add_image" required value="">
+            </div>
+        </form>
+        <div class="button-container">
+            <button class="button add-button" type="submit">Thêm</button>
+            <button class="button cancel-button">Hủy</button>
+        </div>
+    </div>
+</body>
+
+</html>
