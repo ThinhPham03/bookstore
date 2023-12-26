@@ -32,8 +32,8 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public void editBook(String currentID, Book newBook) {
-        bookDAOController.editBook(currentID, newBook);
+    public void editBook(Book newBook) {
+        bookDAOController.editBook(newBook);
     }
 
     @Override

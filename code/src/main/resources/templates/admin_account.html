@@ -46,8 +46,12 @@
                         </tr>
                     </table>
                     <div class="account-actions">
-                        <button class="btn btn-edit-account" onclick="openEditAccountModal()">Chỉnh sửa thông tin</button>
-                        <button class="btn btn-delete-account" id="btn-delete-account">Xóa tài khoản</button>
+                        <a th:href="@{'/quantri/taikhoan/chinhsua/' + ${account.tenTaiKhoan}}">
+                            <button class="btn btn-edit-account">Chỉnh sửa thông tin</button>
+                        </a>
+                        <a th:href="@{'/quantri/taikhoan/xoa/' + ${account.tenTaiKhoan}}">
+                            <button class="btn btn-delete-account">Xóa</button>
+                        </a>
                     </div>
                 </div>
             </div>      

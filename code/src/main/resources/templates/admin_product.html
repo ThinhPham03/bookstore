@@ -43,13 +43,13 @@
                         <span class="product-price" th:text="${book.Gia}"></span>
                     </div>
                     <div class="product-actions">
-                        <a th:href="@{'/quantri/sanpham/chinhsua' + ${book.id}}">
+                        <a th:href="@{'/quantri/sanpham/chinhsua/' + ${book.id}}">
                             <button class="btn btn-edit-product" onclick="">Chỉnh sửa thông tin</button>
                         </a>
                         <a th:href="@{'/quantri/sanpham/' + ${book.id}}">
                             <button class=" btn btn-view-product" onclick="showProductDetail()">Xem chi tiết</button>
                         </a>
-                        <a th:href="@{'/quantri/sanpham/xoa' + ${book.id}}">
+                        <a th:href="@{'/quantri/sanpham/xoa/' + ${book.id}}">
                             <button class="btn btn-delete-product" id="btn-delete-product">Xóa</button>
                         </a>
                     </div>

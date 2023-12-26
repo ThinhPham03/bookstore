@@ -15,11 +15,6 @@ public class OrderDAOControllerImpl implements OrderDAOController{
     }
 
     @Override
-    public void deleteOrder(String id) {
-        orderDAO.deleteOrder(id);
-    }
-
-    @Override
     public void editStatusOrder(String currentID, int newStatus) {
         orderDAO.editStatusOrder(currentID, newStatus);
     }
@@ -53,6 +48,4 @@ public class OrderDAOControllerImpl implements OrderDAOController{
     public void createOrderDetail(OrderDetail newOrderDetail) {
         orderDAO.createOrderDetail(newOrderDetail);
     }
-
-    
 }

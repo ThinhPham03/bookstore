@@ -49,20 +49,40 @@ public class BookDAOImpl implements BookDAO{
 
     @Override
     public void deleteBook(String id) {
-       
+        String sql = "Delete from Sach WHERE ID = ?";
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, id);
+
+            statement.executeUpdate();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void editBook(String currentID, Book newBook) {
-        String sql = "UPDATE Sach SET MatKhau=?, HoTen=?, SoDienThoai=?, Email=?, DiaChi=? WHERE ID = ?";
-        try (PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setString(2, "ho_ten_moi");
-            statement.setString(3, "so_dien_thoai_moi");
-            statement.setString(4, "email_moi");
-            statement.setString(5, "dia_chi_moi");
+    public void editBook(Book newBook) {
+        String sql = 
+            "UPDATE Sach SET Ten = ?, HinhAnh = ?, TacGia = ?, NhaXuatBan = ?, Gia = ?, TonKho = ?, "+
+            "TrongLuong = ?, KichThuoc = ?, GioiThieu = ? WHERE ID = ?";
 
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, newBook.getTen());
+            statement.setString(2, newBook.getHinhAnh());
+            statement.setString(3, newBook.getTacGia());
+            statement.setString(4, newBook.getNhaCungCap());
+            
+            int gia = ConverterCurrency.currencyToNumber(newBook.getGia());
+            statement.setInt(5, gia);
+
+            statement.setInt(6, newBook.getTonKho());
+            statement.setDouble(7, newBook.getTrongLuong());
+            statement.setString(8, newBook.getKichThuoc());
+            statement.setString(9, newBook.getGioiThieu());
+            statement.setString(10, newBook.getId());
+
+            statement.executeUpdate();
         }catch (SQLException e) {
-            e.printStackTrace();
+                e.printStackTrace();
         }
     }
 

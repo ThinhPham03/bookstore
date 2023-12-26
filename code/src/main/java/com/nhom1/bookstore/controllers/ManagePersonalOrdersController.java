@@ -29,7 +29,7 @@ public class ManagePersonalOrdersController {
         if(loggedInUser != null) {
             List<Order> orderList = orderService.search(loggedInUser.toString());
             for (Order order : orderList) {
-                Book book = bookService.getBook(order.getIDSachDau());
+                Book book = bookService.getBook(order.getIdSachDau());
                 order.setCuonSachDau(book);
                 order.setSoSanPham(order.getSoSanPham()-1);
             }

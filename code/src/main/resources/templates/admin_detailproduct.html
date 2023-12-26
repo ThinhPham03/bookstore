@@ -51,7 +51,6 @@
                         </div>
                         <div>
                             <span class="detail-label weight">Trọng lượng: </span>
-                            <span th:if="${book.trongLuong ne 0.0}" th:text="${book.trongLuong}">không có dữ liệu</span>
                             <span th:text="${book.trongLuong != null and book.trongLuong != 0.0 ? book.trongLuong : 'không có dữ liệu'}"></span>
                         </div>
                         <div>
@@ -73,8 +72,12 @@
                     </div>
                 </div>
                 <div class="product-actions" style="justify-content: flex-start;">
-                    <button class="btn btn-edit-product" onclick="directChinhSua()">Chỉnh sửa thông tin</button>
-                    <button class="btn btn-delete-product" onclick="btnDeleteProduct()">Xóa</button>
+                    <a th:href="@{'/quantri/sanpham/chinhsua/' + ${book.id}}">
+                        <button class="btn btn-edit-product" onclick="">Chỉnh sửa thông tin</button>
+                    </a>
+                    <a th:href="@{'/quantri/sanpham/xoa/' + ${book.id}}">
+                        <button class="btn btn-delete-product" id="btn-delete-product">Xóa</button>
+                    </a>
                 </div>
             </div>
         </div>

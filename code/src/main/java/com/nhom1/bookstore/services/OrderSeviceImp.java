@@ -43,11 +43,6 @@ public class OrderSeviceImp implements OrderService {
     }
 
     @Override
-    public void deleteOrder(String id) {
-        orderDAOController.deleteOrder(id);;
-    }
-
-    @Override
     public OrderDetail getOrderDetail(String id) {
         return orderDAOController.getOrderDetail(id);
     }

@@ -19,44 +19,92 @@
 
     <div class="container-edit">
         <h2>Chỉnh Sửa Sản Phẩm</h2>
-        <form action="" class="form-container" method="post">
+        <form th:action="'/quantri/sanpham/chinhsua/' + ${book.id}" class="form-container" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="productCode">Mã Sản Phẩm:</label>
-                <input type="text" id="productCode" class="product-code" value="3721983719" required>
+                <label for="add_image">Hình Ảnh:</label>
+                <input type="file" name="image" id="image" class="add_image" accept="image/*" onchange="validateImageFile()">
+                <input type="text" name="path" id="path" th:value="${book.hinhAnh}" style="display: none;">
+                <div id="error-message"></div>
             </div>
             <div class="form-group">
-                <label for="supplier">Nhà Cung Cấp:</label>
-                <input type="text" id="supplier" class="supplier" value="Nhã Nam" required>
+                <label for="add_name">Tên:</label>
+                <input type="text" name="name" id="name" class="add_name"required  
+                th:value="${book.ten}">
             </div>
             <div class="form-group">
-                <label for="price">Giá:</label>
-                <input type="text" id="price" class="price" value="60000 đ" required>
+                <label for="add_price">Giá (vnđ):</label>
+                <input type="text" name="price" id="price" class="add_price" required oninput="formatNumber(this)"
+                th:value="${book.Gia}">
             </div>
             <div class="form-group">
-                <label for="author">Tác Giả:</label>
-                <input type="text" id="author" class="author" value="José Mauro de Vasconcelos" required>
+                <label for="add_author">Tác Giả:</label>
+                <input type="text" name="author" id="author" class="add_author"
+                th:value="${book.tacGia}">
             </div>
             <div class="form-group">
-                <label for="weight">Trọng Lượng:</label>
-                <input type="text" id="weight" class="weight" value="280g" required>
+                <label for="add_publisher">Nhà xuất bản:</label>
+                <input type="text" name="publisher" id="publisher" class="add_publisher"
+                th:value="${book.nhaCungCap}">
             </div>
             <div class="form-group">
-                <label for="size">Kích Thước:</label>
-                <input type="text" id="size" class="size" value="20 x 14.5 cm" required>
+                <label for="add_weight">Trọng Lượng (kg):</label>
+                <input type="number" name="weight" id="weight" class="add_weight"
+                th:value="${book.trongLuong}">
             </div>
             <div class="form-group">
-                <label for="image">Hình Ảnh:</label>
-                <input type="file" id="image" class="image" required value="">
+                <label for="add_size">Kích Thước:</label>
+                <input type="text" name="size" id="size" class="add_size"
+                th:value="${book.kichThuoc}">
+            </div>
+            <div class="form-group">
+                <label for="add_size">Số tồn kho:</label>
+                <input type="number" name="stock" id="stock" class="add_size"
+                th:value="${book.tonKho}">
+            </div>
+            <div class="form-group">
+                <label for="add_size">Giới thiệu:</label>
+                <input type="text" name="introduction" id="introduction" class="add_size"
+                th:value="${book.gioiThieu}">
+            </div>
+            <div class="button-container">
+                <button class="button add-button" type="submit" onclick="">Lưu</button>
+                <button class="button cancel-button">Hủy</button>
             </div>
         </form>
-        <div class="button-container">
-            <button class="button save-button" type="submit">Lưu</button>
-            <button class="button cancel-button">Hủy</button>
-        </div>
     </div>
 </body>
 <script>
     var sidebar = document.getElementById("sidebarProduct");
     sidebar.classList.add('active');
+    
+    function validateImageFile() {
+        var input = document.getElementById('image');
+        var errorMessage = document.getElementById('error-message');
+    
+        if (input.files.length > 0) {
+            var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i; // Các định dạng ảnh được chấp nhận
+            var fileName = input.files[0].name;
+    
+            if (!allowedExtensions.exec(fileName)) {
+                errorMessage.innerHTML = 'Chỉ chấp nhận các file ảnh có định dạng JPG, JPEG, PNG, hoặc GIF.';
+                input.value = '';
+            } else {
+                errorMessage.innerHTML = '';
+            }
+        }
+    }
+    function formatNumber(input) {
+        let inputValue = input.value;
+
+        // Loại bỏ tất cả các ký tự không phải số
+        inputValue = inputValue.replace(/[^0-9]/g, '');
+
+        // Thêm dấu cách hàng triệu
+        if (inputValue.length > 3) {
+            inputValue = inputValue.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        }
+
+        input.value = inputValue;
+    }
 </script>
 </html>

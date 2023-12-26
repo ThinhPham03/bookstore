@@ -25,11 +25,6 @@ public class OrderDAOImpl implements OrderDAO{
     }
 
     @Override
-    public void deleteOrder(String id) {
-       
-    }
-
-    @Override
     public void editStatusOrder(String currentID, int newStatus) {
         String sql = "UPDATE DonHang SET TrangThai = ? WHERE MaDonHang = ?;";
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
@@ -147,24 +142,21 @@ public class OrderDAOImpl implements OrderDAO{
     public void createOrder(Order newOrder) {
         String sql = "INSERT INTO DonHang (MaDonHang, IDNguoiDat, ThoiGianDat, TrangThai, ThanhTien, IDSachDau, SoSanPham) " +
                          "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, newOrder.getMaDonHang());
+            statement.setString(2, newOrder.getIdNguoiDat());
+            statement.setObject(3, newOrder.getThoiGianDat());
+            statement.setInt(4, newOrder.convertTrangThaiString(newOrder.getTrangThai()));
 
-            try (PreparedStatement statement = conn.prepareStatement(sql)) {
-                statement.setString(1, newOrder.getMaDonHang());
-                statement.setString(2, newOrder.getIdNguoiDat());
-                statement.setObject(3, newOrder.getThoiGianDat());
-                statement.setInt(4, newOrder.getTrangThaiInt());
+            int thanhTien = ConverterCurrency.currencyToNumber(newOrder.getThanhTien());
+            statement.setInt(5, thanhTien);
+            statement.setString(6, newOrder.getIdSachDau());
+            statement.setInt(7, newOrder.getSoSanPham());
 
-                int thanhTien = ConverterCurrency.currencyToNumber(newOrder.getThanhTien());
-                statement.setInt(5, thanhTien);
-                statement.setString(6, newOrder.getIDSachDau());
-                statement.setInt(7, newOrder.getSoSanPham());
-
-                statement.executeUpdate();
-            }catch (SQLException e) {
-                e.printStackTrace();
-            }
-    
-
+            statement.executeUpdate();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
