@@ -59,18 +59,18 @@
                         <label for="address">Địa chỉ</label>
                         <input type="text" id="address" name="address" class="checkout-input" th:value="${account.diaChi}" required>
                     </div>
-                    <button type="submit" class="checkout-btn" onclick="postData()">Đặt hàng</button>
+                    <button type="submit" class="checkout-btn" onclick="postData(event)">Đặt hàng</button>
                 </form>
                 <div class="payment-method-box">
                     <h2>PHƯƠNG THỨC THANH TOÁN</h2>
                     <label>
-                        <input type="radio" name="payment-method" value="credit-card" checked>
+                        <input type="radio" name="payment-method" value="cod" checked>
                         <img src="/img/cash.svg" alt="">Thanh toán khi nhận hàng (COD)
                     </label>
-                    <!-- <label>
-                        <input type="radio" name="payment-method" value="paypal" checked>
+                    <label>
+                        <input type="radio" name="payment-method" value="momo" checked>
                         <img src="/img/momo.svg" alt=""> Momo
-                    </label> -->
+                    </label>
                 </div>
             </div>
         </div>
@@ -79,43 +79,54 @@
     <footer th:include="footer :: footer" class="container footer-container"></footer>
 </body>
 <script src="/js/main.js"></script>
-
 <script>
-    function postData() {
-        var cart = [
-            {
-                "ID": 1,
-                "Ten": "Book 1",
-                "Hinh": "image1.jpg",
-                "Gia": 20.00,
-                "SoLuong": 2
-            },
-            {
-                "ID": 2,
-                "Ten": "Book 2",
-                "Hinh": "image2.jpg",
-                "Gia": 20.00,
-                "SoLuong": 4
-            },
-        ];
+    function postData(event) {
+        event.preventDefault();
+        console.log("Button clicked");
+        var productItems = document.querySelectorAll('.checkout-product-item');
+        var quantityElements = document.querySelectorAll('.checkout-product-item-qty span');
+        var priceTransient = document.getElementById('divThanhTien').innerText;
+        var email = document.getElementById("email").value;
+        var phone = document.getElementById("phone").value;
+        var address = document.getElementById("address").value;
+        var paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
 
-        sendCartData(cart);
-    }
-    function sendCartData(cart) {
-        // Use Axios to send data
-        axios.post('/giohang/thanhtoan', cart, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        .then(response => {
-            // Handle the response from the server if needed
-            console.log(response.data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
+
+        var bookList = [];
+        productItems.forEach(function (item) {
+            var quantity= item.querySelector('.checkout-product-item-qty span');
+            var book = {
+                ID: item.id,
+                SoLuong: parseInt(quantity.innerText, 10),
+            }            
+            bookList.push(book);
         });
-    }
 
+        var data = {
+            BookList: bookList,
+            Price: priceTransient,
+            Phone: phone,
+            Address: address,
+            PaymentMethod: paymentMethod
+        };
+
+        console.log(data)
+
+        fetch('/giohang/thanhtoan', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                console.log('Data sent to server:', data);
+            });
+    }
 </script>
 </html>

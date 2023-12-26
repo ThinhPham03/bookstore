@@ -11,6 +11,8 @@ import com.nhom1.bookstore.entity.Order;
 import com.nhom1.bookstore.services.BookService;
 import com.nhom1.bookstore.services.OrderService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class ManageOrderController {
     private final OrderService orderService;
@@ -22,13 +24,18 @@ public class ManageOrderController {
     }
 
     @GetMapping("/quantri/donhang")
-    public String manageOrder(Model model) {
-        List<Order> orderList = orderService.getOrderList();
-        for (Order order : orderList) {
-            Book book = bookService.getBook(order.getFirstBook());
-            order.setFirstBook(book);
+    public String manageOrder(Model model, HttpSession session) {
+        Object isAdmin = session.getAttribute("isAdmin");
+        if(isAdmin != null && isAdmin.equals(Boolean.TRUE)) {
+            List<Order> orderList = orderService.getOrderList();
+            for (Order order : orderList) {
+                Book book = bookService.getBook(order.getIDSachDau());
+                order.setCuonSachDau(book);
+            }
+            model.addAttribute("orderList", orderList);
+            return "admin_order";
         }
-        model.addAttribute("orderList", orderList);
-        return "admin_order";
+        return "redirect:/dangnhap";
+        
     }
 }

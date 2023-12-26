@@ -40,6 +40,8 @@ CREATE TABLE DonHang (
 
 CREATE TABLE ChiTietDonHang (
     MaDonHang varchar(8),
+	SoDienThoai VARCHAR(15),
+    DiaChi VARCHAR(255),
     IDSach varchar(8),
     SoLuong INT,
     FOREIGN KEY (MaDonHang) REFERENCES DonHang(MaDonHang),
@@ -66,23 +68,25 @@ VALUES
 INSERT INTO TaiKhoan (TenTaiKhoan, isAdmin, MatKhau)
 VALUES ('admin',  true, 'admin');
 INSERT INTO TaiKhoan (TenTaiKhoan, HoTen, SoDienThoai, DiaChi, isAdmin, MatKhau)
-VALUES ('user', 'Tester', '0123456789', '371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM', false, 'user');
+VALUES
+('user1', 'Tester1', '0123456789', '371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM', false, 'user1'),
+('user2', 'Tester2', '0987654321', '371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM', false, 'user2');
 
 INSERT INTO DonHang (MaDonHang, IDNguoiDat, ThoiGianDat, TrangThai, ThanhTien, IDSachDau, SoSanPham)
-VALUES ('OCFEI004', 'user', '2023-01-15', 0, 360000, 'BHXGU988', 3);
-INSERT INTO ChiTietDonHang (MaDonHang, IDSach, SoLuong)
+VALUES ('OCFEI004', 'user1', '2023-01-15', 0, 360000, 'BHXGU988', 3);
+INSERT INTO ChiTietDonHang (MaDonHang, IDSach, SoLuong, SoDienThoai, DiaChi) 
 VALUES 
-('OCFEI004',  'BHXGU988', 2),
-('OCFEI004', 'BWNPW735' , 1),
-('OCFEI004', 'BGEHN704', 3);
+('OCFEI004',  'BHXGU988', 2, '0123456789', '371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM'),
+('OCFEI004', 'BWNPW735' , 1, '0123456789', '371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM'),
+('OCFEI004', 'BGEHN704', 3, '0123456789', '371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM');
 
 INSERT INTO DonHang (MaDonHang, IDNguoiDat, ThoiGianDat, TrangThai, ThanhTien, IDSachDau, SoSanPham)
-VALUES ('ORCYN729', 'user', '2023-05-30', 0, 900000, 'BGRMC730', 6);
+VALUES ('ORCYN729', 'user1', '2023-05-30', 0, 900000, 'BGRMC730', 6);
 INSERT INTO ChiTietDonHang (MaDonHang, IDSach, SoLuong)
-VALUES 
-('ORCYN729', 'BGRMC730' , 2),
-('ORCYN729', 'BPNOW492' , 3),
-('ORCYN729', 'BXFLU747' , 1),
-('ORCYN729', 'BLSVL608' , 5),
-('ORCYN729', 'BWNPW735' , 3),
-('ORCYN729', 'BHXGU988' , 1);
+VALUES
+('ORCYN729', 'BGRMC730' , 2, '0123456789', '371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM'),
+('ORCYN729', 'BPNOW492' , 3, '0123456789', '371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM'),
+('ORCYN729', 'BXFLU747' , 1, '0123456789', '371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM'),
+('ORCYN729', 'BLSVL608' , 5, '0123456789', '371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM'),
+('ORCYN729', 'BWNPW735' , 3, '0123456789', '371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM'),
+('ORCYN729', 'BHXGU988' , 1, '0123456789', '371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM');

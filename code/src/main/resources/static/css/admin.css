@@ -60,6 +60,7 @@ body {
     color: white;
     border: none;
     padding: 8px 16px;
+    margin: 0px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -187,7 +188,7 @@ nav {
 .container-m-product,
 .container-m-order,
 .container-m-account {
-    max-width: 900px;
+    max-width: 1200px;
 }
 
 .container-m-account h1 {
@@ -251,6 +252,7 @@ nav {
 .account-actions {
     display: flex;
     margin-top: 10px;
+    justify-content: flex-end;
 }
 
 .product-actions button:not(:last-child),
@@ -362,7 +364,6 @@ nav {
 
 .detail-label {
     font-weight: bold;
-    margin-right: 5px;
 }
 
 .container-edit,

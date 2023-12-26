@@ -1,6 +1,7 @@
 package com.nhom1.bookstore.services;
 
 import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nhom1.bookstore.entity.Book;
 
@@ -12,4 +13,5 @@ public interface BookService {
     void deleteBook(String id);
     List<Book> search(String tuKhoa);
     List<Book> getTopSelling();
+    String fileToFilePathConverter(MultipartFile file);
 }

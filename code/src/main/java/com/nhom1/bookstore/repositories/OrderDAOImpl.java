@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nhom1.bookstore.entity.Order;
 import com.nhom1.bookstore.entity.OrderDetail;
+import com.nhom1.bookstore.entity.OrderDetail.BookInOrder;
 import com.nhom1.bookstore.services.ConverterCurrency;
 
 @Repository
@@ -29,13 +30,21 @@ public class OrderDAOImpl implements OrderDAO{
     }
 
     @Override
-    public void editOrder(String currentID, Order newOrder) {
-    
+    public void editStatusOrder(String currentID, int newStatus) {
+        String sql = "UPDATE DonHang SET TrangThai = ? WHERE MaDonHang = ?;";
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, newStatus);
+            statement.setString(2, currentID);
+
+            statement.executeUpdate();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public Order getOrder(String id) {
-       String sql = "SELECT * FROM DonHang where MaDonHang = ?";
+        String sql = "SELECT * FROM DonHang where MaDonHang = ?";
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -134,5 +143,47 @@ public class OrderDAOImpl implements OrderDAO{
         return result;
     }
 
+    @Override
+    public void createOrder(Order newOrder) {
+        String sql = "INSERT INTO DonHang (MaDonHang, IDNguoiDat, ThoiGianDat, TrangThai, ThanhTien, IDSachDau, SoSanPham) " +
+                         "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
+            try (PreparedStatement statement = conn.prepareStatement(sql)) {
+                statement.setString(1, newOrder.getMaDonHang());
+                statement.setString(2, newOrder.getIdNguoiDat());
+                statement.setObject(3, newOrder.getThoiGianDat());
+                statement.setInt(4, newOrder.getTrangThaiInt());
+
+                int thanhTien = ConverterCurrency.currencyToNumber(newOrder.getThanhTien());
+                statement.setInt(5, thanhTien);
+                statement.setString(6, newOrder.getIDSachDau());
+                statement.setInt(7, newOrder.getSoSanPham());
+
+                statement.executeUpdate();
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+    
+
+    }
+
+    @Override
+    public void createOrderDetail(OrderDetail newOrderDetail) {
+        String sql = "INSERT INTO DatHang (MaDonHang, SoDienThoai, DiaChi, IDSach, SoLuong) VALUES (?, ?, ?, ?, ?)";
+        List<OrderDetail.BookInOrder> bookList =  newOrderDetail.getBookList();
+
+        for (BookInOrder bookInOrder : bookList) {
+            try (PreparedStatement statement = conn.prepareStatement(sql)) {
+                statement.setString(1, newOrderDetail.getMaDonHang());
+                statement.setString(2, newOrderDetail.getSoDienThoai());
+                statement.setString(3, newOrderDetail.getDiaChi());
+
+                statement.setString(4, bookInOrder.getIdSach());
+                statement.setInt(5, bookInOrder.getSoLuong());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

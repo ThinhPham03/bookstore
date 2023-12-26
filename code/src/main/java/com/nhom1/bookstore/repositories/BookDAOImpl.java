@@ -23,7 +23,28 @@ public class BookDAOImpl implements BookDAO{
 
     @Override
     public void addBook(Book newBook) {
-        
+        String sql =
+            "INSERT INTO Sach (ID, Ten, HinhAnh, TacGia, NhaXuatBan, Gia, DaBan, TonKho, TrongLuong, KichThuoc, GioiThieu) " +
+            "VALUES (?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?)";
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, newBook.getId());
+            statement.setString(2, newBook.getTen());
+            statement.setString(3, newBook.getHinhAnh());
+            statement.setString(4, newBook.getTacGia());
+            statement.setString(5, newBook.getNhaCungCap());
+            
+            int gia = ConverterCurrency.currencyToNumber(newBook.getGia());
+            statement.setInt(6, gia);
+
+            statement.setInt(7, newBook.getTonKho());
+            statement.setDouble(8, newBook.getTrongLuong());
+            statement.setString(9, newBook.getKichThuoc());
+            statement.setString(10, newBook.getGioiThieu());
+
+            statement.executeUpdate();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

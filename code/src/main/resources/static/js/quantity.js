@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 quantityInput.value = 1;
             } else if(input >= maxQuantity){
                 quantityInput.value = maxQuantity;
+                alert("Đã quá số lượng tồn kho");
             }
         });
     }
@@ -39,8 +40,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (newValue >= 1 && newValue <= maxQuantity) {
             quantityInput.value = newValue;
-        } else {
+        } else if(newValue <= 0 || isNaN(newValue)){
+            quantityInput.value = 1;
+        } else if(newValue >= maxQuantity){
             quantityInput.value = maxQuantity;
+            alert("Đã quá số lượng tồn kho");
         }
     }
 });

@@ -4,6 +4,8 @@ import java.util.List;
 
 public class OrderDetail {
     private String maDonHang;
+    private String soDienThoai;
+    private String diaChi;
     private List<BookInOrder> bookList;
 
     public OrderDetail(){}
@@ -16,7 +18,7 @@ public class OrderDetail {
         private String idSach;
         private Book sach;
         private int soLuong;
-
+        
         public BookInOrder(String idSach, int soluong) {
             this.idSach = idSach;
             this.soLuong = soluong;
@@ -39,7 +41,6 @@ public class OrderDetail {
         public void setSoLuong(int soluong) {
             this.soLuong = soluong;
         }
-        
     }
 
     public String getMaDonHang() {
@@ -56,6 +57,18 @@ public class OrderDetail {
 
     public void setBookList(List<BookInOrder> bookList) {
         this.bookList = bookList;
+    }
+    public String getSoDienThoai() {
+        return soDienThoai;
+    }
+    public void setSoDienThoai(String soDienThoai) {
+        this.soDienThoai = soDienThoai;
+    }
+    public String getDiaChi() {
+        return diaChi;
+    }
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
     }
     
 }

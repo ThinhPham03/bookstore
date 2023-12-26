@@ -29,8 +29,8 @@ public class ManagePersonalOrdersController {
         if(loggedInUser != null) {
             List<Order> orderList = orderService.search(loggedInUser.toString());
             for (Order order : orderList) {
-                Book book = bookService.getBook(order.getFirstBook());
-                order.setFirstBook(book);
+                Book book = bookService.getBook(order.getIDSachDau());
+                order.setCuonSachDau(book);
                 order.setSoSanPham(order.getSoSanPham()-1);
             }
             model.addAttribute("orderList", orderList);

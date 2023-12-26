@@ -3,18 +3,23 @@ package com.nhom1.bookstore.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import com.nhom1.bookstore.DTO.OrderDTO;
 import com.nhom1.bookstore.entity.Account;
 import com.nhom1.bookstore.services.AccountService;
+import com.nhom1.bookstore.services.OrderService;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class CheckoutController {
     private final AccountService accountService;
-    
-    public CheckoutController(AccountService accountService) {
+    private final OrderService orderService;
+
+    public CheckoutController(AccountService accountService, OrderService orderService) {
         this.accountService = accountService;
+        this.orderService = orderService;
     }
 
     @GetMapping("/giohang/thanhtoan")
@@ -31,5 +36,15 @@ public class CheckoutController {
             return "thanhtoan";
         }
         return "redirect:/dangnhap";
+    }
+
+    @PostMapping("/giohang/thanhtoan")
+    public String checkOut(OrderDTO orderDTO, HttpSession session) {
+        Object loggedInUser = session.getAttribute("loggedInUser");
+        if(loggedInUser != null) {
+            orderService.createOrder(loggedInUser.toString(), orderDTO);
+        }
+        
+        return "trangchu";
     }
 }

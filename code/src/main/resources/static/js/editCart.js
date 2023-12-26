@@ -16,8 +16,8 @@ function addToCart() {
 
     var id = document.getElementById("ID").innerText;
     var soLuong = document.getElementById("quantityInput").value;
-    if(soLuong > 10) {
-        soLuong = 10;
+    if(soLuong > 20) {
+        soLuong = 20;
     }
 
     for(i = 0; i < cart.length; i++) {
@@ -25,9 +25,9 @@ function addToCart() {
             var book = cart[cart.length-1];
             book.SoLuong = Number(book.SoLuong) + Number(soLuong); 
             console.log(book.SoLuong);
-            if(book.SoLuong >= 10) {
-                book.SoLuong = 10;
-                alert("Số lượng tối đa đối với khách hàng cá nhân là 10");
+            if(book.SoLuong >= 20) {
+                book.SoLuong = 20;
+                alert("Số lượng tối đa đối với khách hàng cá nhân là 20");
             }
             cart[cart.length-1] = book;
             isAdd = true;
@@ -65,12 +65,12 @@ document.addEventListener("DOMContentLoaded", () => {
         quantityInputs[i].addEventListener('input', function () {
             var input = parseInt(this.value, 10);
             console.log(input);
-            if (input >= 1 && input <= 10) {
+            if (input >= 1 && input <= 20) {
                 this.value = input;
             } else if (input <= 0 || isNaN(input)) {
                 this.value = 1;
-            } else if (input >= 10) {
-                this.value = 10;
+            } else if (input >= 20) {
+                this.value = 20;
             }
         });
     }

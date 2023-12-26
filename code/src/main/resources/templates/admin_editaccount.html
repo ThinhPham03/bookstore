@@ -14,34 +14,8 @@
 </head>
 
 <body>
-    <div class="header">
-        <nav class="nav">
-            <div class="menu-icon" onclick="toggleSidebar()">
-                <i class="toggle-icon fa-solid fa-bars" id="toggleIcon"></i>
-            </div>
-            <div class="search-container">
-                <input type="text" class="search-input" placeholder="Tìm kiếm ...">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </div>
-            <a href="/trangchu"><img src="/img/logo/logo.png" alt="" class="logo"></a>
-        </nav>
-    </div>
-
-    <div class="sidebar" id="sidebar">
-        <ul>
-            <li class="btn-close-sidebar" onclick="closeSidebar()"><i class="fa-solid fa-x"></i></li>
-            <li><a href="#" class="sidebar-link" onclick="goToAdminHome()"><i class="fa-solid fa-home"></i> Trang
-                chủ Admin</a></li>
-            <li><a href="#m-product" class="sidebar-link active" onclick="switchContent('sanpham', event)"><i
-                        class="fa-brands fa-shopify"></i> Quản lý sản
-                    phẩm</a></li>
-            <li><a href="#m-order" class="sidebar-link" onclick="switchContent('donhang', event)"><i
-                        class="fa-solid fa-box"></i>
-                    Quản lý đơn hàng</a></li>
-            <li><a href="#m-account" class="sidebar-link" onclick="switchContent('taikhoan', event)"><i
-                        class="fa-solid fa-users"></i> Quản lý tài khoản</a></li>
-        </ul>
-    </div>
+    <div th:include="header_admin" class="header"></div>
+    <div th:include="sidebar_admin" class="sidebar" id="sidebar"></div>
 
     <div class="content" id="content">
         <div class="container-edit">
@@ -81,10 +55,8 @@
 </body>
 
 <script>
-    document.getElementById("account-save-button").addEventListener("click", () => {
-        alert('Lưu thông tin thành công');
-        window.location.href = 'account.html'
-    })
+    var sidebar = document.getElementById("sidebarAccount");
+    sidebar.classList.add('active');
 </script>
 
 </html>

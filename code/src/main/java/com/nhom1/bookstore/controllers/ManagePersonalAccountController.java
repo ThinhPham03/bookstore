@@ -44,4 +44,6 @@ public class ManagePersonalAccountController {
         accountService.editAccount(loggedInUser.toString(), account);
         return "redirect:/taikhoan/thongtin";
     }
+
+    
 }

@@ -75,13 +75,14 @@ function viewCart(cart) {
         quantityInput.type = "number";
         quantityInput.value = soLuong;
         quantityInput.min = 1;
-        quantityInput.max = 10;
+        quantityInput.setAttribute("th:max", "${book.tonKho}");
         quantityInput.addEventListener('input', function () {
             console.log("input")
             var bookId = productDiv.id;
             var newQuantity = quantityInput.value; 
-            if(newQuantity >= 10) {
-                newQuantity = 10;
+            if(newQuantity >= quantityInput.max) {
+                newQuantity = quantityInput.max;
+                alert("Đã quá số lượng tồn kho");
             } else if(newQuantity <= 1) {
                 newQuantity = 1;
             }
@@ -98,6 +99,10 @@ function viewCart(cart) {
         var totalDiv = document.createElement("div");
         totalDiv.className = "product-total";
         var tongTien = Number(convertCurrencyToNumber(gia)*soLuong);
+        console.log(gia);
+        console.log(convertCurrencyToNumber(gia));
+        console.log(soLuong);
+        console.log(tongTien);
         totalDiv.textContent = convertNumberToCurrency(tongTien); // Thay "Gia" bằng tên trường chứa giá trong dữ liệu
         productDiv.appendChild(totalDiv);
 
@@ -128,12 +133,14 @@ function viewCart(cart) {
 
 function convertCurrencyToNumber(currencyString) {
     // Xóa ký tự '₫' và dấu phẩy (nếu có)
-    var cleanedString = currencyString.replace('₫', '').replace('.', '');
+    var cleanedString = currencyString.replace('₫', '').replace(/\./g, '');
 
     // Chuyển đổi thành số nguyên
     var convertedNumber = parseInt(cleanedString);
-    return convertedNumber;
+
+    return isNaN(convertedNumber) ? 0 : convertedNumber;
 }
+
 
 function convertNumberToCurrency(number) {
     // Định dạng số và thêm ký tự '₫'

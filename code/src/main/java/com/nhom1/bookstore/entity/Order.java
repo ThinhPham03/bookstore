@@ -44,6 +44,21 @@ public class Order {
         }
     }
 
+    private int convertTrangThai(String trangThai) {
+        switch (trangThai) {
+            case "Chưa xác nhận":
+                return 0;
+            case "Đã xác nhận":
+                return 1;
+            case "Đang vận chuyển":
+                return 2;
+            case "Đã hoàn thành":
+                return 3;
+            default:
+                return 10;
+        }
+    }
+
     public String getMaDonHang() {
         return maDonHang;
     }
@@ -62,8 +77,11 @@ public class Order {
     public void setThoiGianDat(Date ThoiGianDat) {
         this.thoiGianDat = ThoiGianDat;
     }
-    public String getTrangThai() {
+    public String getTrangThaiString() {
         return trangThai;
+    }
+    public int getTrangThaiInt() {
+        return convertTrangThai(trangThai);
     }
     public void setTrangThai(int trangThai) {
         this.trangThai = convertTrangThai(trangThai);
@@ -74,11 +92,11 @@ public class Order {
     public void setThanhTien(String thanhTien) {
         this.thanhTien = thanhTien;
     }
-    public String getFirstBook() {
+    public String getIDSachDau() {
         return idSachDau;
     }
-    public void setFirstBook(Book cuonSachDau) {
-        this.cuonSachDau = cuonSachDau;
+    public void setIDSachDau(String idSachDau) {
+        this.idSachDau = idSachDau;
     }
     public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
