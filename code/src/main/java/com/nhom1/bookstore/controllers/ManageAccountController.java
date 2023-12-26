@@ -20,7 +20,7 @@ public class ManageAccountController {
     }
 
     @GetMapping("/quantri/taikhoan")
-    public String getManageAccount(Model model) {
+    public String manageAccount(Model model) {
         List<Account> accountList = accountService.getAccountList();
         List<Account> userList = new ArrayList<>();
         for (Account account : accountList) {

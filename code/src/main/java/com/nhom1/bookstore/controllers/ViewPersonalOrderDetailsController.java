@@ -30,7 +30,7 @@ public class ViewPersonalOrderDetailsController {
     }
 
     @GetMapping("/taikhoan/donhang/{id}")
-    public String danhSach(@PathVariable("id") String id, Model model, HttpSession session) {
+    public String viewPersonalOrder(@PathVariable("id") String id, Model model, HttpSession session) {
         Object loggedInUser = session.getAttribute("loggedInUser");
         if(loggedInUser != null) {
             Order order = orderService.getOrder(id);

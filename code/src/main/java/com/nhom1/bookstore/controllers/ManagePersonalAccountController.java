@@ -31,7 +31,7 @@ public class ManagePersonalAccountController {
     }
 
     @PostMapping("/taikhoan/thongtin")
-    public String register(HttpSession session,
+    public String changeInformation(HttpSession session,
     @RequestParam("hoten") String hoten, 
     @RequestParam("sdt") String sdt, 
     @RequestParam("diachi") String diachi) {

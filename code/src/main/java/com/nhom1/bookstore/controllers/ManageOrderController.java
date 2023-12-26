@@ -22,7 +22,7 @@ public class ManageOrderController {
     }
 
     @GetMapping("/quantri/donhang")
-    public String danhSach(Model model) {
+    public String manageOrder(Model model) {
         List<Order> orderList = orderService.getOrderList();
         for (Order order : orderList) {
             Book book = bookService.getBook(order.getFirstBook());

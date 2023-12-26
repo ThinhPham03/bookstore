@@ -1,23 +1,24 @@
 package com.nhom1.bookstore.controllers;
 
-import java.util.Map;
+import java.util.List;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.nhom1.bookstore.entity.Book;
+
+@Controller
 public class CreateOrderController {
 
     @PostMapping("/giohang/thanhtoan")
-    public ResponseEntity<String> processFormData(@RequestBody Map<String, String> requestData) {
-        String tableId = requestData.get("tableId");
-        String soluong = requestData.get("soluong");
+    public void receiveCartData(@RequestBody List<Book> cart) {
+        // Xử lý dữ liệu giỏ hàng tại phía máy chủ
+        for (Book book : cart) {
+            // Đối với mỗi sách trong giỏ hàng, bạn có thể thực hiện các thao tác xử lý dữ liệu
+            System.out.println(book);
+        }
 
-        // Xử lý dữ liệu ở đây
-        System.out.println("Table ID: " + tableId);
-        System.out.println("Soluong: " + soluong);
-
-        // Trả về kết quả (có thể là mã HTTP 200 OK)
-        return ResponseEntity.ok("Data received successfully");
+        // Trả về một phản hồi nếu cần
     }
 }

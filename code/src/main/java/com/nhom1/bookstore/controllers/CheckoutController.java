@@ -18,7 +18,7 @@ public class CheckoutController {
     }
 
     @GetMapping("/giohang/thanhtoan")
-    public String thanhToan(HttpSession session, Model model) {
+    public String getCheckOut(HttpSession session, Model model) {
         Object loggedInUser = session.getAttribute("loggedInUser");
         if(loggedInUser != null) {
             Account account = accountService.getAccountNonPassword(loggedInUser.toString());

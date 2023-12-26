@@ -18,7 +18,7 @@ public class ManageBookController {
     }
 
     @GetMapping("/quantri/sanpham")
-    public String getManageBook(Model model) {
+    public String manageBook(Model model) {
         List<Book> bookList = bookService.getBookList();
         model.addAttribute("bookList", bookList);
         return "admin_product";

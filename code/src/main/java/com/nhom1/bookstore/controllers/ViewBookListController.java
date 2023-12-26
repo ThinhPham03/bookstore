@@ -18,7 +18,7 @@ public class ViewBookListController {
     }
 
     @GetMapping("/danhsach")
-    public String danhSach(Model model) {
+    public String viewBookList(Model model) {
         List<Book> bookList = bookService.getBookList();
         model.addAttribute("bookList", bookList);
         return "danhsach";
