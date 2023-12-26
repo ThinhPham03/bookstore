@@ -55,7 +55,7 @@ public class BookDAOImpl implements BookDAO{
                     String ten = resultSet.getString("Ten");
                     String hinhAnh = resultSet.getString("HinhAnh");
                     String tacGia = resultSet.getString("TacGia");
-                    String nhaCungCap = resultSet.getString("NhaCungCap");
+                    String nhaXuatBan = resultSet.getString("NhaXuatBan");
                     int tonKho = resultSet.getInt("TonKho");
                     
                     int giaRaw = resultSet.getInt("Gia");
@@ -66,7 +66,7 @@ public class BookDAOImpl implements BookDAO{
                     String kichThuoc = resultSet.getString("KichThuoc");
                     String gioiThieu = resultSet.getString("GioiThieu");
 
-                     return new Book(id, ten, hinhAnh, tacGia, nhaCungCap, tonKho, gia, daBan, trongLuong, kichThuoc, gioiThieu);
+                     return new Book(id, ten, hinhAnh, tacGia, nhaXuatBan, tonKho, gia, daBan, trongLuong, kichThuoc, gioiThieu);
                 }
             }
         }catch (SQLException e) {
@@ -86,7 +86,7 @@ public class BookDAOImpl implements BookDAO{
                     String ten = resultSet.getString("Ten");
                     String hinhAnh = resultSet.getString("HinhAnh");
                     String tacGia = resultSet.getString("TacGia");
-                    String nhaCungCap = resultSet.getString("NhaCungCap");
+                    String nhaXuatBan = resultSet.getString("NhaXuatBan");
                     int tonKho = resultSet.getInt("TonKho");
 
                     int giaRaw = resultSet.getInt("Gia");
@@ -97,7 +97,7 @@ public class BookDAOImpl implements BookDAO{
                     String kichThuoc = resultSet.getString("KichThuoc");
                     String gioiThieu = resultSet.getString("GioiThieu");
 
-                    bookList.add(new Book(id, ten, hinhAnh, tacGia, nhaCungCap, tonKho, gia, daBan, trongLuong, kichThuoc, gioiThieu));
+                    bookList.add(new Book(id, ten, hinhAnh, tacGia, nhaXuatBan, tonKho, gia, daBan, trongLuong, kichThuoc, gioiThieu));
                 }
             }
         }catch (SQLException e) {
@@ -109,7 +109,7 @@ public class BookDAOImpl implements BookDAO{
     @Override
     public List<Book> search(String tuKhoa) {
         List<Book> result = new ArrayList<>();
-        String sql = "SELECT * FROM TaiKhoan WHERE LOWER(ID) LIKE LOWER(?) OR LOWER(Ten) LIKE LOWER(?) OR LOWER(TacGia) LIKE LOWER(?) OR LOWER(NhaCungCap) LIKE LOWER(?) OR LOWER(Gia) LIKE LOWER(?) OR LOWER(GioiThieu) LIKE LOWER(?)";
+        String sql = "SELECT * FROM TaiKhoan WHERE LOWER(ID) LIKE LOWER(?) OR LOWER(Ten) LIKE LOWER(?) OR LOWER(TacGia) LIKE LOWER(?) OR LOWER(NhaXuatBan) LIKE LOWER(?) OR LOWER(Gia) LIKE LOWER(?) OR LOWER(GioiThieu) LIKE LOWER(?)";
         try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
             preparedStatement.setString(1, "%" + tuKhoa + "%");
             preparedStatement.setString(2, "%" + tuKhoa + "%");
@@ -123,7 +123,7 @@ public class BookDAOImpl implements BookDAO{
                     String ten = resultSet.getString("Ten");
                     String hinhAnh = resultSet.getString("HinhAnh");
                     String tacGia = resultSet.getString("TacGia");
-                    String nhaCungCap = resultSet.getString("NhaCungCap");
+                    String nhaXuatBan = resultSet.getString("NhaXuatBan");
                     int tonKho = resultSet.getInt("TonKho");
                     
                     int giaRaw = resultSet.getInt("Gia");
@@ -133,7 +133,7 @@ public class BookDAOImpl implements BookDAO{
                     double trongLuong = resultSet.getDouble("TrongLuong");
                     String kichThuoc = resultSet.getString("KichThuoc");
                     String gioiThieu = resultSet.getString("GioiThieu");
-                    result.add(new Book(sql, ten, hinhAnh, tacGia, nhaCungCap, tonKho, gia, daBan, trongLuong, kichThuoc, gioiThieu));
+                    result.add(new Book(sql, ten, hinhAnh, tacGia, nhaXuatBan, tonKho, gia, daBan, trongLuong, kichThuoc, gioiThieu));
                 }
             }
         } catch (SQLException e) {

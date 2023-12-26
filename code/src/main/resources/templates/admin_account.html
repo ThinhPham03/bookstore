@@ -18,48 +18,36 @@
         <h1>Quản lý tài khoản người dùng</h1>
 
         <div class="container-account-card clear-fix">
-            <div class="account-card">
-                <div class="account-image">
-                    <img src="/img/avatar.jpg" alt="">
-                </div>
+            <div class="account-card" th:each="account : ${accountList}">
                 <div class="account-details">
                     <table>
                         <tr>
                             <td><span style="font-weight: bold;">ID:</span></td>
-                            <td><span class="account-code" >33678</span></td>
+                            <td><span class="account-code" th:text="${account.tenTaiKhoan}"></span></td>
                         </tr>
                         <tr>
-                            <td><span style="font-weight: bold;">Họ và tên người dùng:</span></td>
-                            <td><span class="account-name">Chiến đo</span></td>
+                            <td><span style="font-weight: bold;">Họ và tên:</span></td>
+                            <td><span class="account-name" th:text="${account.hoTen}"></span></td>
                         </tr>
                         <tr>
                             <td><span style="font-weight: bold;">Email:</span></td>
-                            <td><span class="account-price">email@gmail.com</span></td>
+                            <td><span class="account-price" th:text="${account.email}"></span></td>
                         </tr>
                         <tr>
                             <td><span style="font-weight: bold;">Số điện thoại: </span></td>
-                            <td><span class="account-remain">0123456789</span></td>
+                            <td><span class="account-remain" th:text="${account.soDienThoai}"></span></td>
                         </tr>
                         <tr>
                             <td><span style="font-weight: bold;">Địa chỉ</span></td>
-                            <td><span class="account-state">Thôn Hóa Lành</span></td>
+                            <td><span class="account-state" th:text="${account.diaChi}"></span></td>
                         </tr>
                     </table>
                     <div class="account-actions">
-                        <button class="btn btn-edit-account" onclick="openEditAccountModal()">Chỉnh sửa thông
-                            tin</button>
-                        <button class="btn btn-view-account" onclick="showAccountDetail()">Xem chi tiết</button>
+                        <button class="btn btn-edit-account" onclick="openEditAccountModal()">Chỉnh sửa thông tin</button>
                         <button class="btn btn-delete-account" id="btn-delete-account">Xóa tài khoản</button>
                     </div>
                 </div>
-            </div>
-
-            <div id="accountDetailModal" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeAccountDetailModal()">&times;</span>
-                    <div id="accountDetailContent"></div>
-                </div>
-            </div>
+            </div>      
         </div>
     </div>
 </body>

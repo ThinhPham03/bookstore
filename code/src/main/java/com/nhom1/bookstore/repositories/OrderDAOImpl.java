@@ -91,7 +91,7 @@ public class OrderDAOImpl implements OrderDAO{
                     int trangThai = resultSet.getInt("TrangThai");
                     int thanhTienRaw = resultSet.getInt("ThanhTien");
                     String thanhTien = ConverterCurrency.numberToCurrency(thanhTienRaw);
-                    String idSachDau = resultSet.getString("CuonSachDau");
+                    String idSachDau = resultSet.getString("IDSachDau");
                     int soSanPham = resultSet.getInt("SoSanPham");
                     orderList.add(new Order(maDonHang, idNguoiDat, thoiGianDat, trangThai, thanhTien, idSachDau, soSanPham));
                 }
@@ -105,7 +105,7 @@ public class OrderDAOImpl implements OrderDAO{
     @Override
     public List<Order> search(String tuKhoa) {
         List<Order> result = new ArrayList<>();
-        String sql = "SELECT * FROM DonHang WHERE LOWER(MaDonHang) LIKE LOWER(?) OR LOWER(IDNguoiDat) LIKE LOWER(?) OR LOWER(ThoiGianDat) LIKE LOWER(?) OR LOWER(CuonSachDau) LIKE LOWER(?) OR LOWER(SoSanPham) LIKE LOWER(?)";
+        String sql = "SELECT * FROM DonHang WHERE LOWER(MaDonHang) LIKE LOWER(?) OR LOWER(IDNguoiDat) LIKE LOWER(?) OR LOWER(ThoiGianDat) LIKE LOWER(?) OR LOWER(IDSachDau) LIKE LOWER(?) OR LOWER(SoSanPham) LIKE LOWER(?)";
         try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
             preparedStatement.setString(1, "%" + tuKhoa + "%");
             preparedStatement.setString(2, "%" + tuKhoa + "%");
@@ -123,7 +123,7 @@ public class OrderDAOImpl implements OrderDAO{
                     int thanhTienRaw = resultSet.getInt("ThanhTien");
                     String thanhTien = ConverterCurrency.numberToCurrency(thanhTienRaw);
 
-                    String idSachDau = resultSet.getString("CuonSachDau");
+                    String idSachDau = resultSet.getString("IDSachDau");
                     int soSanPham = resultSet.getInt("SoSanPham");
                     result.add(new Order(maDonHang, idNguoiDat, thoiGianDat, trangThai, thanhTien, idSachDau, soSanPham));
                 }

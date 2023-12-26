@@ -40,17 +40,11 @@
                         <span class="order-state" th:text="${order.trangThai}"></span>
                     </div>
                     <div class="order-actions">
-                        <button class="btn btn-edit-product" onclick="openUpdateStatusModal()">Cập nhật trạng
-                            thái</button>
+                        <button class="btn btn-edit-product" onclick="openUpdateStatusModal(event)" th:id="${order.maDonHang}">
+                            Cập nhật trạng thái
+                        </button>
                         <button class=" btn btn-view-order" onclick="showOrderDetail()">Xem chi tiết</button>
                     </div>
-                </div>
-            </div>
-
-            <div id="orderDetailModal" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeOrderDetailModal()">&times;</span>
-                    <div id="orderDetailContent"></div>
                 </div>
             </div>
 
@@ -58,18 +52,19 @@
                 <div class="modal-content">
                     <span class="close" onclick="closeUpdateStatusModal()">&times;</span>
                     <h2>Cập nhật trạng thái</h2>
-                    <form id="updateStatusForm">
+                    <form id="updateStatusForm" method="post" >
                         <label for="orderStatus">Trạng thái đơn hàng:</label>
                         <select id="orderStatus" name="orderStatus">
                             <option value="0">Chưa xác nhận</option>
                             <option value="1">Đã xác nhận</option>
                             <option value="2">Đang vận chuyển</option>
                             <option value="3">Hoàn thành</option>
-                            <option value="10">Đã hủy</option>
+                            <option value="10">Hủy</option>
                         </select>
 
-                        <button type="button" class="btn btn-save" onclick="saveOrderStatus()">Lưu</button>
+                        <button type="submit" class="btn btn-save" onclick="saveOrderStatus()">Lưu</button>
                         <button type="button" class="btn btn-cancel" onclick="closeUpdateStatusModal()">Hủy</button>
+                        <input type="text" name="ID" id="ID" style="display: none;" value="">
                     </form>
                 </div>
             </div>
@@ -77,19 +72,5 @@
         </div>
     </div>
 </body>
-<script>
-    function openUpdateStatusModal() {
-        document.getElementById('updateStatusModal').style.display = 'block';
-    }
-
-    function closeUpdateStatusModal() {
-        document.getElementById('updateStatusModal').style.display = 'none';
-    }
-
-    function saveOrderStatus() {
-        alert('Order status updated successfully!');
-        closeUpdateStatusModal();
-    }
-</script>
 
 </html>

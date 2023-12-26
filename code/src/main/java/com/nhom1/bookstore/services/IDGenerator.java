@@ -28,11 +28,11 @@ public class IDGenerator {
         return "B" + generatorID();
     }
 
-    public static String IDAccount() {
-        return "A" + generatorID();
-    }
-
     public static String IDOrder() {
         return "O" + generatorID();
+    }
+    public static void main(String[] args) {
+        System.out.println(IDOrder());
+        System.out.println(IDOrder());
     }
 }

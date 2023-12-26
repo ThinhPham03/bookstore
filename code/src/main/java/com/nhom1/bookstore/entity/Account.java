@@ -18,6 +18,7 @@ public class Account {
         this.diaChi = diaChi;
         this.isAdmin = isAdmin;
     }
+    
     public Account(String id, String hoTen, String soDienThoai, String email, String diaChi, boolean isAdmin, String matKhau) {
         this.tenTaiKhoan = id;
         this.hoTen = hoTen;

@@ -30,7 +30,7 @@ const setActiveLink = (link) => {
         sidebarLink.classList.remove('active');
     });
 
-    link.classList.add('active');
+    // link.classList.add('active');
 }
 
 const switchContent = (contentType, event, link) => {
@@ -79,10 +79,16 @@ const directChinhSua = () => {
 
 const closeOrderDetailModal = () => {
     document.getElementById('orderDetailModal').style.display = 'none';
+    document.getElementById("ID").value = "";
 }
 
-const openUpdateStatusModal = () => {
+const openUpdateStatusModal = (event) => {
     document.getElementById('updateStatusModal').style.display = 'block';
+    var clickedButton = event.currentTarget
+    console.log(clickedButton.id);
+    document.getElementById("ID").value = clickedButton.id;
+    console.log(document.getElementById("ID").value);
+    console.log(window.href.location)
 }
 
 const closeUpdateStatusModal = () => {
