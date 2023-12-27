@@ -30,7 +30,7 @@ public class ViewOrderDetailsController {
     }
 
     @GetMapping("/quantri/donhang/{id}")
-    public String viewPersonalOrder(@PathVariable("id") String id, Model model, HttpSession session) {
+    public String getOrderDetail(@PathVariable("id") String id, Model model, HttpSession session) {
         Object isAdmin = session.getAttribute("isAdmin");
         if(isAdmin != null && isAdmin.equals(Boolean.TRUE)) {
             Order order = orderService.getOrder(id);

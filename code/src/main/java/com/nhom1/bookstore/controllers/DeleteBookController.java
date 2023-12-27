@@ -15,7 +15,7 @@ public class DeleteBookController {
     }
 
     @GetMapping("/quantri/sanpham/xoa/{id}")
-    public String viewEditAccount(@PathVariable("id") String id) {
+    public String deleteBook(@PathVariable("id") String id) {
         bookService.deleteBook(id);
         return "redirect:/quantri/sanpham"; 
     }

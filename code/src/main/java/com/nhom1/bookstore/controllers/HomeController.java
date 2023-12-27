@@ -18,14 +18,14 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String getTrangChu1(Model model) {
+    public String getHome(Model model) {
         List<Book> bookList = bookService.getTopSelling();
         model.addAttribute("bookList", bookList);
         return "trangchu";
     }
 
     @GetMapping("/trangchu")
-    public String getTrangChu2(Model model) {
+    public String getHomeMain(Model model) {
         List<Book> bookList = bookService.getTopSelling();
         model.addAttribute("bookList", bookList);
         return "trangchu";

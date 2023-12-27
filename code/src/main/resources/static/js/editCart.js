@@ -19,7 +19,7 @@ function addToCart() {
     var soTonKho = document.getElementById("quantityInput").max;
 
     for(i = 0; i < cart.length; i++) {
-        if(cart[i].ID == id)  {
+        if(cart[i].ID === id)  {
             var book = cart[i];
             book.SoLuong = Number(book.SoLuong) + Number(soLuong); 
             if(book.SoLuong >= soTonKho) {
@@ -35,7 +35,7 @@ function addToCart() {
 
     }
 
-    if(!isAdd) {
+    if(isAdd === false) {
         var ten = document.getElementById("Ten").innerText;
         var hinh = document.getElementById("Hinh").getAttribute("src");
         var gia = document.getElementById("Gia").innerText;
