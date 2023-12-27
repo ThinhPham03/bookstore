@@ -42,4 +42,10 @@ public class BookDAOControllerImpl implements BookDAOController{
     public List<Book> search(String tuKhoa) {
         return bookDAO.search(tuKhoa);
     }
+
+    @Override
+    public void updateSoldQuantity(String id, int daBan) {
+        bookDAO.updateSoldQuantity(id, daBan);
+        
+    }
 }

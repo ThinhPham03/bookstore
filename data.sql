@@ -82,7 +82,7 @@ VALUES
 
 INSERT INTO DonHang (MaDonHang, IDNguoiDat, ThoiGianDat, TrangThai, ThanhTien, IDSachDau, SoSanPham)
 VALUES ('ORCYN729', 'user1', '2023-05-30', 0, 900000, 'BGRMC730', 6);
-INSERT INTO ChiTietDonHang (MaDonHang, IDSach, SoLuong)
+INSERT INTO ChiTietDonHang (MaDonHang, IDSach, SoLuong, SoDienThoai, DiaChi)
 VALUES
 ('ORCYN729', 'BGRMC730' , 2, '0123456789', '371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM'),
 ('ORCYN729', 'BPNOW492' , 3, '0123456789', '371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM'),

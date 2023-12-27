@@ -161,7 +161,7 @@ public class OrderDAOImpl implements OrderDAO{
 
     @Override
     public void createOrderDetail(OrderDetail newOrderDetail) {
-        String sql = "INSERT INTO DatHang (MaDonHang, SoDienThoai, DiaChi, IDSach, SoLuong) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO chitietdonhang (MaDonHang, SoDienThoai, DiaChi, IDSach, SoLuong) VALUES (?, ?, ?, ?, ?)";
         List<OrderDetail.BookInOrder> bookList =  newOrderDetail.getBookList();
 
         for (BookInOrder bookInOrder : bookList) {

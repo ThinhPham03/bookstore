@@ -12,7 +12,6 @@ import com.nhom1.bookstore.services.AccountService;
 @Controller
 public class RegisterAccountController {
     private final AccountService accountService;
-    private String thongbao = "";
 
     public RegisterAccountController(AccountService accountService) {
         this.accountService = accountService;
@@ -20,7 +19,6 @@ public class RegisterAccountController {
 
     @GetMapping("/dangky")
     public String viewRegister(Model model) {
-        model.addAttribute("thongbao", thongbao);
         return "register";
     }
 
@@ -34,18 +32,17 @@ public class RegisterAccountController {
             if(accountService.checkUsername(username)){
                 if(password1.equals(password2)) {
                     accountService.registerAccount(new Account(username, email, password1));
-                    thongbao = "";
                     return "redirect:/dangnhap";
                 } else{
-                    thongbao = "Mật khẩu nhập lại không chính xác";
+                    model.addAttribute("thongbao", "Mật khẩu nhập lại không chính xác");
                     return "redirect:/dangky";
                 }
             } else{
-                thongbao =  "Tên đăng nhập này đã được sử dụng";
+                model.addAttribute("thongbao", "Tên đăng nhập này đã được sử dụng");
                 return "redirect:/dangky";
             }
         } else{
-            thongbao =  "Email này đã được sử dụng";
+            model.addAttribute("thongbao", "Email này đã được sử dụng");
             return "redirect:/dangky";
         }
     }

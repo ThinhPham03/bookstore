@@ -85,6 +85,20 @@ public class BookDAOImpl implements BookDAO{
                 e.printStackTrace();
         }
     }
+    
+    @Override
+    public void updateSoldQuantity(String id, int daBan) {
+        String sql = "UPDATE Sach SET DaBan = ? WHERE ID = ?";
+
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, daBan);
+            statement.setString(2, id);
+
+            statement.executeUpdate();
+        }catch (SQLException e) {
+                e.printStackTrace();
+        }
+    }
 
     @Override
     public Book getBook(String id) {

@@ -33,6 +33,7 @@ public class ManageOrderController {
                 order.setCuonSachDau(book);
             }
             model.addAttribute("orderList", orderList);
+            
             return "admin_order";
         }
         return "redirect:/dangnhap";

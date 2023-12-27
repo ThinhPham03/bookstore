@@ -1,13 +1,14 @@
 package com.nhom1.bookstore.services;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.nhom1.bookstore.DTO.OrderDTO;
-import com.nhom1.bookstore.DTO.OrderDTO.BookDTO;
 import com.nhom1.bookstore.entity.Order;
 import com.nhom1.bookstore.entity.OrderDetail;
 import com.nhom1.bookstore.repositories.OrderDAOController;
@@ -22,10 +23,19 @@ public class OrderSeviceImp implements OrderService {
 
     @Override
     public List<Order> getOrderList() {
-        return orderDAOController.getOrderList();
+        List<Order> orderList = orderDAOController.getOrderList();
+        sortByThoiGianDat(orderList);
+        return orderList;
     }
 
-
+    private void sortByThoiGianDat(List<Order> orderList) {
+        Collections.sort(orderList, new Comparator<Order>() {
+            @Override
+            public int compare(Order order1, Order order2) {
+                return order2.getThoiGianDat().compareTo(order1.getThoiGianDat());
+            }
+        });
+    }
 
     @Override
     public Order getOrder(String id) {
@@ -39,7 +49,9 @@ public class OrderSeviceImp implements OrderService {
 
     @Override
     public List<Order> search(String tuKhoa) {
-        return orderDAOController.search(tuKhoa);
+        List<Order> orderList = orderDAOController.search(tuKhoa);
+        sortByThoiGianDat(orderList);
+        return orderList;
     }
 
     @Override
@@ -55,12 +67,12 @@ public class OrderSeviceImp implements OrderService {
         order.setIdNguoiDat(idNguoiDat);
         order.setThoiGianDat(new Date());
         int trangThai = 0;
-        if(newOrder.getPaymentMethod() == "momo") {
+        if(newOrder.getPaymentMethod().equals("momo")) {
             trangThai = 1;
         }
         order.setTrangThai(trangThai);
         order.setThanhTien(newOrder.getPrice());
-        order.setIdSachDau(newOrder.getBookList().get(0).getID());
+        order.setIdSachDau(newOrder.getBookList().get(0));
         order.setSoSanPham(newOrder.getBookList().size());
         orderDAOController.createOrder(order);
 
@@ -71,14 +83,15 @@ public class OrderSeviceImp implements OrderService {
 
         orderDetail.setBookList(new ArrayList<>());
         
-        List<OrderDTO.BookDTO> bookList =  newOrder.getBookList();
-        for (BookDTO bookDTO : bookList) {
-            String idSach = bookDTO.getID();
-            int soLuong = bookDTO.getSoLuong();
+        for(int i = 0; i < newOrder.getBookList().size(); i++){
+            String idSach = newOrder.getBookList().get(i);
+            String soLuongRaw = newOrder.getPriceList().get(i);
+            int soLuong = Integer.parseInt(soLuongRaw);
 
             OrderDetail.BookInOrder bookInOrder = orderDetail.new BookInOrder(idSach, soLuong);
             orderDetail.getBookList().add(bookInOrder);
         }
+
         orderDAOController.createOrderDetail(orderDetail);
     }
 }

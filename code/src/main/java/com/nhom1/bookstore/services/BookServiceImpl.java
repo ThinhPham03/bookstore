@@ -75,4 +75,9 @@ public class BookServiceImpl implements BookService{
 
         return booklist.subList(0, Math.min(5, booklist.size()));
     }
+
+    @Override
+    public void updateSoldQuantity(String id, int daBan) {
+        bookDAOController.updateSoldQuantity(id, daBan);
+    }
 }

@@ -11,4 +11,5 @@ public interface BookDAO {
     void editBook(Book newBook);
     void deleteBook(String id);
     List<Book> search(String tuKhoa);
+    void updateSoldQuantity(String id, int daBan);
 }

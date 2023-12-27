@@ -35,6 +35,9 @@
                         <span class="order-name" th:text="${order.cuonSachDau.ten}"></span>
                     </div>
                     <div>
+                        <span class="order-name" th:text="'Và ' + ${order.soSanPham - 1} + ' cuốn sách khác'"></span>
+                    </div>
+                    <div>
                         <span style="font-weight: bold;">Giá:</span>
                         <span class="order-price" th:text="${order.thanhTien}"></span>
                     </div>
@@ -43,7 +46,9 @@
                         <span class="order-state" th:text="${order.trangThai}"></span>
                     </div>
                     <div class="order-actions">
-                        <button class="btn btn-edit-product" onclick="openUpdateStatusModal(event)" th:id="${order.maDonHang}">
+                        <button class="btn btn-edit-product" onclick="openUpdateStatusModal(event)" th:id="${order.maDonHang}"
+                        th:style="${order.trangThai == 'Đã hoàn thành' or order.trangThai == 'Đã hủy' ? 'opacity: 0.5;' : ''}"
+                        th:disabled="${order.trangThai == 'Đã hoàn thành' or order.trangThai == 'Đã hủy'}">
                             Cập nhật trạng thái
                         </button>
                         <a th:href="@{'/quantri/donhang/' + ${order.maDonHang}}">

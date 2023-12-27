@@ -93,24 +93,24 @@
 
 
         var bookList = [];
+        var priceList = [];
         productItems.forEach(function (item) {
-            var quantity= item.querySelector('.checkout-product-item-qty span');
-            var book = {
-                ID: item.id,
-                SoLuong: parseInt(quantity.innerText, 10),
-            }            
-            bookList.push(book);
+            var bookID = item.id
+            bookList.push(bookID);
+            var quantity= item.querySelector('.checkout-product-item-qty span').innerText;        
+            priceList.push(quantity)
         });
 
         var data = {
-            BookList: bookList,
-            Price: priceTransient,
-            Phone: phone,
-            Address: address,
-            PaymentMethod: paymentMethod
+            "bookList": bookList,
+            "priceList": priceList,
+            "price": priceTransient,
+            "phone": phone,
+            "address": address,
+            "paymentMethod": paymentMethod
         };
 
-        console.log(data)
+        localStorage.removeItem("cart")
 
         fetch('/giohang/thanhtoan', {
             method: 'POST',
@@ -119,14 +119,15 @@
             },
             body: JSON.stringify(data)
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                console.log('Data sent to server:', data);
-            });
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            console.log('Data sent to server:', data);
+        });
+        window.location.href = "/taikhoan";
     }
 </script>
 </html>

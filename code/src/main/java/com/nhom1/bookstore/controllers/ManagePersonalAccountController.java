@@ -3,13 +3,12 @@ package com.nhom1.bookstore.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nhom1.bookstore.entity.Account;
 import com.nhom1.bookstore.services.AccountService;
 
 import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 public class ManagePersonalAccountController {
@@ -18,7 +17,7 @@ public class ManagePersonalAccountController {
     public ManagePersonalAccountController(AccountService accountService) {
         this.accountService = accountService;
     }
-
+    
     @GetMapping("/taikhoan/thongtin")
     public String viewPersonalAccount(HttpSession session, Model model) {
         Object loggedInUser = session.getAttribute("loggedInUser");
@@ -30,20 +29,17 @@ public class ManagePersonalAccountController {
         return "redirect:/dangnhap";
     }
 
-    @PostMapping("/taikhoan/thongtin")
-    public String changeInformation(HttpSession session,
-    @RequestParam("hoten") String hoten, 
-    @RequestParam("sdt") String sdt, 
-    @RequestParam("diachi") String diachi) {
-        Account account = new Account();
-        account.setHoTen(hoten);
-        account.setSoDienThoai(sdt);
-        account.setDiaChi(diachi);
-
+    @GetMapping("/taikhoan")
+    public String directAccount(HttpSession session) {
         Object loggedInUser = session.getAttribute("loggedInUser");
-        accountService.editAccount(loggedInUser.toString(), account);
-        return "redirect:/taikhoan/thongtin";
+        if(loggedInUser != null) {
+            
+            Object isAdmin = session.getAttribute("isAdmin");
+            if(isAdmin != null && isAdmin.equals(Boolean.TRUE)) {
+                return "redirect:/quantri/donhang";
+            }
+            return "redirect:/taikhoan/donhang";
+        }
+        return "redirect:/dangnhap";
     }
-
-    
 }

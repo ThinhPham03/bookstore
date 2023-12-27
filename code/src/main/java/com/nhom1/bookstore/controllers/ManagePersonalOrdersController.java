@@ -33,6 +33,7 @@ public class ManagePersonalOrdersController {
                 order.setCuonSachDau(book);
                 order.setSoSanPham(order.getSoSanPham()-1);
             }
+            
             model.addAttribute("orderList", orderList);
             return "user_donhang";
         }

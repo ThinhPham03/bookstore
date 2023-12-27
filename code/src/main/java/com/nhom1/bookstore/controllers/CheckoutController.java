@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.nhom1.bookstore.DTO.OrderDTO;
 import com.nhom1.bookstore.entity.Account;
@@ -28,10 +29,12 @@ public class CheckoutController {
         if(loggedInUser != null) {
             Account account = accountService.getAccountNonPassword(loggedInUser.toString());
             model.addAttribute("account", account);
-            if(account.getDiaChi().isEmpty()) {
-                model.addAttribute("noAddress", false);
-            }else{
-                model.addAttribute("noAddress", true);
+            if(account.getDiaChi() != null) {
+                if(account.getDiaChi().isEmpty()) {
+                    model.addAttribute("noAddress", false);
+                }else{
+                    model.addAttribute("noAddress", true);
+                }
             }
             return "thanhtoan";
         }
@@ -39,12 +42,10 @@ public class CheckoutController {
     }
 
     @PostMapping("/giohang/thanhtoan")
-    public String checkOut(OrderDTO orderDTO, HttpSession session) {
+    public void checkOut(@RequestBody OrderDTO orderDTO, HttpSession session) {
         Object loggedInUser = session.getAttribute("loggedInUser");
         if(loggedInUser != null) {
             orderService.createOrder(loggedInUser.toString(), orderDTO);
         }
-        
-        return "trangchu";
     }
 }

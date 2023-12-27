@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class CheckCartController {
     @GetMapping("/giohang")
     public String checkCart() {
-        
         return "giohang";
     }
 }

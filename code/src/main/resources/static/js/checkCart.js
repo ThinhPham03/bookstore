@@ -73,20 +73,26 @@ function viewCart(cart) {
         var quantityInput = document.createElement("input");
         quantityInput.className = "product-info-quantity-input"
         quantityInput.type = "number";
-        quantityInput.value = soLuong;
+        quantityInput.value = Number(soLuong);
         quantityInput.min = 1;
-        quantityInput.setAttribute("th:max", "${book.tonKho}");
+        quantityInput.max = Number(soLuong);
+        quantityInput.id = Number(soLuong);
         quantityInput.addEventListener('input', function () {
-            console.log("input")
             var bookId = productDiv.id;
-            var newQuantity = quantityInput.value; 
-            if(newQuantity >= quantityInput.max) {
-                newQuantity = quantityInput.max;
-                alert("Đã quá số lượng tồn kho");
+            
+            var newQuantity = Number(this.value);
+            var max = Number(this.id);
+            console.log(newQuantity);
+            console.log(quantityInput.max);
+            // if
+            if(newQuantity >= 1 && newQuantity <= max) {
+                updateQuantityInLocalStorage(bookId, newQuantity);
+            } else if(newQuantity >= max) {
+                alert("Hiện trong giỏ hàng chỉ có giảm số lượng sản phẩm");
+                this.value = max;
             } else if(newQuantity <= 1) {
-                newQuantity = 1;
+                this.value = 1;
             }
-            updateQuantityInLocalStorage(bookId, newQuantity);
         });
         quantityDiv.appendChild(quantityInput);
 
@@ -99,10 +105,7 @@ function viewCart(cart) {
         var totalDiv = document.createElement("div");
         totalDiv.className = "product-total";
         var tongTien = Number(convertCurrencyToNumber(gia)*soLuong);
-        console.log(gia);
-        console.log(convertCurrencyToNumber(gia));
-        console.log(soLuong);
-        console.log(tongTien);
+
         totalDiv.textContent = convertNumberToCurrency(tongTien); // Thay "Gia" bằng tên trường chứa giá trong dữ liệu
         productDiv.appendChild(totalDiv);
 
@@ -184,6 +187,6 @@ function updateQuantityInLocalStorage(bookId, newQuantity) {
 
         // Lưu danh sách mới vào localStorage
         localStorage.setItem('cart', JSON.stringify(cart));
-        location.reload(true);
+        // location.reload(true);
     }
 }

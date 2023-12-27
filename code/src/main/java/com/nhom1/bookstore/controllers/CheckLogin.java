@@ -11,8 +11,10 @@ public class CheckLogin {
 
     @ModelAttribute
     public void checkLogin(Model model, HttpSession session) {
-        session.setAttribute("loggedInUser", "admin");
-        session.setAttribute("isAdmin", true);
+        // session.setAttribute("loggedInUser", "user1");
+        // session.setAttribute("loggedInUser", "admin");
+        // session.setAttribute("isAdmin", true);
+
         Object loggedInUser = session.getAttribute("loggedInUser");
         if(loggedInUser != null) {
             model.addAttribute("userOptionsSection", true);
