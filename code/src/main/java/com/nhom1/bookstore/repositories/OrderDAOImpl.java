@@ -71,6 +71,10 @@ public class OrderDAOImpl implements OrderDAO{
                 while (resultSet.next()) {
                     String idSach = resultSet.getString("IDSach");
                     int soLuong = resultSet.getInt("SoLuong");
+                    String soDienThoai = resultSet.getString("SoDienThoai");
+                    orderDetail.setSoDienThoai(soDienThoai);
+                    String diaChi = resultSet.getString("DiaChi");
+                    orderDetail.setDiaChi(diaChi);
                     OrderDetail.BookInOrder bookInOrder = orderDetail.new BookInOrder(idSach, soLuong);
                     orderDetail.getBookList().add(bookInOrder);
                 }
