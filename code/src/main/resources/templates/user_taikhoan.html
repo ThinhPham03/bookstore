@@ -23,8 +23,9 @@
                 </div>
                 <div class="slidebar-content">
                     <ul>
-                        <li><a href="/taikhoan/thongtin" id="user-info-link">Thông tin tài khoản</a></li>
-                        <li><a href="/taikhoan/donhang" id="user-order-link" class="selected">Đơn hàng của tôi</a></li>
+                        <li><a href="/taikhoan/thongtin" id="user-info-link" class="selected">Thông tin tài khoản</a>
+                        </li>
+                        <li><a href="/taikhoan/donhang" id="user-order-link">Đơn hàng của tôi</a></li>
                     </ul>
                 </div>
             </nav>
@@ -44,11 +45,12 @@
                         <label for="diachi">Địa chỉ:</label>
                         <input type="diachi" id="diachi" name="diachi" th:value="${account.diaChi}">
                     </div>
-                    <a href="/taikhoan/doimatkhau">
+
+                    <!-- <a href="/taikhoan/doimatkhau">
                         <button id="change-password" name="change-password">Đổi mật khẩu</button>
                     </a>
 
-                    <!-- <div class="password-fields">
+                    <div class="password-fields">
                         <div class="form-group-info">
                             <label for="current-password">Mật khẩu hiện tại:</label>
                             <input type="password" id="current-password" name="current-password"

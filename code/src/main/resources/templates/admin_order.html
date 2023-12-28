@@ -35,7 +35,8 @@
                         <span class="order-name" th:text="${order.cuonSachDau.ten}"></span>
                     </div>
                     <div>
-                        <span class="order-name" th:text="'Và ' + ${order.soSanPham - 1} + ' cuốn sách khác'"></span>
+                        <span class="order-name" th:text="'Và ' + ${order.soSanPham - 1} + ' cuốn sách khác'"
+                        th:style="${order.soSanPham - 1 == 0 ? 'display: none;' : ''}"></span>
                     </div>
                     <div>
                         <span style="font-weight: bold;">Giá:</span>
