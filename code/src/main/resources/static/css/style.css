@@ -1383,21 +1383,14 @@ body {
     line-height: 1.5;
 }
 
-.account {
-    /* display: none; */
-}
-
-.account div:last-child {
-    margin-top: 4px;
-}
-
 .user-options .login-register {
     display: flex;
     gap: 10px;
     align-items: center;
 }
 
-.account-options {
+.account-options,
+.admin-options {
     width: 200px;
     display: none;
     position: absolute;
@@ -1409,11 +1402,13 @@ body {
     z-index: 1;
 }
 
-.account:hover .account-options {
+.account:hover .account-options,
+.admin:hover .admin-options {
     display: block;
 }
 
-.account-options button {
+.account-options button,
+.admin-options button {
     padding: 10px;
     cursor: pointer;
     width: 100%;
