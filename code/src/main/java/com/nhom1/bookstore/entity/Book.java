@@ -19,7 +19,7 @@ public class Book {
         this.id = id;
         this.ten = ten;
         this.hinhAnh = hinhAnh;
-        this.tacGia = tacGia;
+        this.tacGia = tacGia;   
         this.nhaCungCap = nhaCungCap;
         this.tonKho = tonKho;
         this.gia = gia;

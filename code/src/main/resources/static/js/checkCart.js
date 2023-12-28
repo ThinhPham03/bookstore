@@ -73,19 +73,26 @@ function viewCart(cart) {
         var quantityInput = document.createElement("input");
         quantityInput.className = "product-info-quantity-input"
         quantityInput.type = "number";
-        quantityInput.value = soLuong;
+        quantityInput.value = Number(soLuong);
         quantityInput.min = 1;
-        quantityInput.max = 10;
+        quantityInput.max = Number(soLuong);
+        quantityInput.id = Number(soLuong);
         quantityInput.addEventListener('input', function () {
-            console.log("input")
             var bookId = productDiv.id;
-            var newQuantity = quantityInput.value; 
-            if(newQuantity >= 10) {
-                newQuantity = 10;
+            
+            var newQuantity = Number(this.value);
+            var max = Number(this.id);
+            console.log(newQuantity);
+            console.log(quantityInput.max);
+            // if
+            if(newQuantity >= 1 && newQuantity <= max) {
+                updateQuantityInLocalStorage(bookId, newQuantity);
+            } else if(newQuantity >= max) {
+                alert("Hiện trong giỏ hàng chỉ có giảm số lượng sản phẩm");
+                this.value = max;
             } else if(newQuantity <= 1) {
-                newQuantity = 1;
+                this.value = 1;
             }
-            updateQuantityInLocalStorage(bookId, newQuantity);
         });
         quantityDiv.appendChild(quantityInput);
 
@@ -98,6 +105,7 @@ function viewCart(cart) {
         var totalDiv = document.createElement("div");
         totalDiv.className = "product-total";
         var tongTien = Number(convertCurrencyToNumber(gia)*soLuong);
+
         totalDiv.textContent = convertNumberToCurrency(tongTien); // Thay "Gia" bằng tên trường chứa giá trong dữ liệu
         productDiv.appendChild(totalDiv);
 
@@ -128,12 +136,14 @@ function viewCart(cart) {
 
 function convertCurrencyToNumber(currencyString) {
     // Xóa ký tự '₫' và dấu phẩy (nếu có)
-    var cleanedString = currencyString.replace('₫', '').replace('.', '');
+    var cleanedString = currencyString.replace('₫', '').replace(/\./g, '');
 
     // Chuyển đổi thành số nguyên
     var convertedNumber = parseInt(cleanedString);
-    return convertedNumber;
+
+    return isNaN(convertedNumber) ? 0 : convertedNumber;
 }
+
 
 function convertNumberToCurrency(number) {
     // Định dạng số và thêm ký tự '₫'
@@ -177,6 +187,6 @@ function updateQuantityInLocalStorage(bookId, newQuantity) {
 
         // Lưu danh sách mới vào localStorage
         localStorage.setItem('cart', JSON.stringify(cart));
-        location.reload(true);
+        // location.reload(true);
     }
 }

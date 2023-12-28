@@ -14,75 +14,89 @@
 </head>
 
 <body>
-    <div class="header">
-        <nav class="nav">
-            <div class="menu-icon" onclick="toggleSidebar()">
-                <i class="toggle-icon fa-solid fa-bars" id="toggleIcon"></i>
-            </div>
-            <div class="search-container">
-                <input type="text" class="search-input" placeholder="Tìm kiếm ...">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </div>
-            <a href="/trangchu"><img src="/img/logo/logo.png" alt="" class="logo"></a>
-        </nav>
-    </div>
-
-    <div class="sidebar" id="sidebar">
-        <ul>
-            <li class="btn-close-sidebar" onclick="closeSidebar()"><i class="fa-solid fa-x"></i></li>
-            <li><a href="#" class="sidebar-link" onclick="goToAdminHome()"><i class="fa-solid fa-home"></i> Trang
-                chủ Admin</a></li>
-            <li><a href="#m-product" class="sidebar-link active" onclick="switchContent('sanpham', event)"><i
-                        class="fa-brands fa-shopify"></i> Quản lý sản
-                    phẩm</a></li>
-            <li><a href="#m-order" class="sidebar-link" onclick="switchContent('donhang', event)"><i
-                        class="fa-solid fa-box"></i>
-                    Quản lý đơn hàng</a></li>
-            <li><a href="#m-account" class="sidebar-link" onclick="switchContent('taikhoan', event)"><i
-                        class="fa-solid fa-users"></i> Quản lý tài khoản</a></li>
-        </ul>
-    </div>
+    <div th:include="header_admin" class="header"></div>
+    <div th:include="sidebar_admin" class="sidebar" id="sidebar"></div>
 
     <div class="container-add">
         <h2>Thêm sản phẩm</h2>
-        <form action="" class="form-container" method="post">
+        <form action="/quantri/sanpham/them" class="form-container" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="add_productCode">Mã Sản Phẩm:</label>
-                <input type="text" id="add_productCode" class="add_product-code" value="" required
-                    placeholder="Nhập mã sản phẩm">
+                <label for="add_image">Hình Ảnh:</label>
+                <input type="file" name="image" id="image" class="add_image" accept="image/*" required onchange="validateImageFile()">
+                <div id="error-message"></div>
             </div>
             <div class="form-group">
-                <label for="add_supplier">Nhà Cung Cấp:</label>
-                <input type="text" id="add_supplier" class="add_supplier" value="" required
-                    placeholder="Nhập nhà cung cấp">
+                <label for="add_name">Tên:</label>
+                <input type="text" name="name" id="name" class="add_name" value="" required>
             </div>
             <div class="form-group">
-                <label for="add_price">Giá:</label>
-                <input type="text" id="add_price" class="add_price" value="" required placeholder="Nhập giá">
+                <label for="add_price">Giá (vnđ):</label>
+                <input type="text" name="price" id="price" class="add_price" value="" required oninput="formatNumber(this)">
             </div>
             <div class="form-group">
                 <label for="add_author">Tác Giả:</label>
-                <input type="text" id="add_author" class="add_author" value="" required placeholder="Nhập tác giả">
+                <input type="text" name="author" id="author" class="add_author" value="">
             </div>
             <div class="form-group">
-                <label for="add_weight">Trọng Lượng:</label>
-                <input type="text" id="add_weight" class="add_weight" value="" required placeholder="Nhập trọng lượng">
+                <label for="add_publisher">Nhà xuất bản:</label>
+                <input type="text" name="publisher" id="publisher" class="add_publisher" value="">
+            </div>
+            <div class="form-group">
+                <label for="add_weight">Trọng Lượng (kg):</label>
+                <input type="number" name="weight" id="weight" class="add_weight" value="">
             </div>
             <div class="form-group">
                 <label for="add_size">Kích Thước:</label>
-                <input type="text" id="add_size" class="add_size" value="" placeholder="Nhập kích thước" required
-                    placeholder="Nhập kích thước">
+                <input type="text" name="size" id="size" class="add_size" value="">
             </div>
             <div class="form-group">
-                <label for="add_image">Hình Ảnh:</label>
-                <input type="file" id="add_image" class="add_image" required value="">
+                <label for="add_size">Số tồn kho:</label>
+                <input type="number" name="stock" id="stock" class="add_size" value="">
+            </div>
+            <div class="form-group">
+                <label for="add_size">Giới thiệu:</label>
+                <input type="text" name="introduction" id="introduction" class="add_size" value="">
+            </div>
+            <div class="button-container">
+                <button class="button add-button" type="submit" onclick="">Thêm</button>
+                <button class="button cancel-button">Hủy</button>
             </div>
         </form>
-        <div class="button-container">
-            <button class="button add-button" type="submit">Thêm</button>
-            <button class="button cancel-button">Hủy</button>
-        </div>
     </div>
 </body>
+<script>
+    var sidebar = document.getElementById("sidebarProduct");
+    sidebar.classList.add('active');
+    
+    function validateImageFile() {
+        var input = document.getElementById('image');
+        var errorMessage = document.getElementById('error-message');
+    
+        if (input.files.length > 0) {
+            var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i; // Các định dạng ảnh được chấp nhận
+            var fileName = input.files[0].name;
+    
+            if (!allowedExtensions.exec(fileName)) {
+                errorMessage.innerHTML = 'Chỉ chấp nhận các file ảnh có định dạng JPG, JPEG, PNG, hoặc GIF.';
+                input.value = '';
+            } else {
+                errorMessage.innerHTML = '';
+            }
+        }
+    }
+    function formatNumber(input) {
+        let inputValue = input.value;
+
+        // Loại bỏ tất cả các ký tự không phải số
+        inputValue = inputValue.replace(/[^0-9]/g, '');
+
+        // Thêm dấu cách hàng triệu
+        if (inputValue.length > 3) {
+            inputValue = inputValue.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        }
+
+        input.value = inputValue;
+    }
+</script>
 
 </html>

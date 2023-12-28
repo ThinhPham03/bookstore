@@ -24,8 +24,8 @@ public class BookDAOControllerImpl implements BookDAOController{
     }
 
     @Override
-    public void editBook(String currentID, Book newBook) {
-        bookDAO.editBook(currentID, newBook);
+    public void editBook(Book newBook) {
+        bookDAO.editBook(newBook);
     }
 
     @Override
@@ -41,5 +41,11 @@ public class BookDAOControllerImpl implements BookDAOController{
     @Override
     public List<Book> search(String tuKhoa) {
         return bookDAO.search(tuKhoa);
+    }
+
+    @Override
+    public void updateSoldQuantity(String id, int daBan) {
+        bookDAO.updateSoldQuantity(id, daBan);
+        
     }
 }

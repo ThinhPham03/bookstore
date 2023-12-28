@@ -17,7 +17,7 @@ public class ViewBookDetailsController {
     }
 
     @GetMapping("/sach/{id}")
-    public String chitiet(@PathVariable("id") String id, Model model) {
+    public String viewBookDetail(@PathVariable("id") String id, Model model) {
         Book book = bookService.getBook(id);
         model.addAttribute("book", book);
         return "chitiet";

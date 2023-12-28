@@ -14,6 +14,9 @@
 </head>
 
 <body>
+    <div th:include="header_admin" class="header"></div>
+    <div th:include="sidebar_admin" class="sidebar" id="sidebar"></div>
+    
     <div class="container container-m-order">
         <h1>Quản lý đơn hàng</h1>
 
@@ -32,6 +35,9 @@
                         <span class="order-name" th:text="${order.cuonSachDau.ten}"></span>
                     </div>
                     <div>
+                        <span class="order-name" th:text="'Và ' + ${order.soSanPham - 1} + ' cuốn sách khác'"></span>
+                    </div>
+                    <div>
                         <span style="font-weight: bold;">Giá:</span>
                         <span class="order-price" th:text="${order.thanhTien}"></span>
                     </div>
@@ -40,10 +46,14 @@
                         <span class="order-state" th:text="${order.trangThai}"></span>
                     </div>
                     <div class="order-actions">
-                        <button class="btn btn-edit-product" onclick="openUpdateStatusModal(event)" th:id="${order.maDonHang}">
+                        <button class="btn btn-edit-product" onclick="openUpdateStatusModal(event)" th:id="${order.maDonHang}"
+                        th:style="${order.trangThai == 'Đã hoàn thành' or order.trangThai == 'Đã hủy' ? 'opacity: 0.5;' : ''}"
+                        th:disabled="${order.trangThai == 'Đã hoàn thành' or order.trangThai == 'Đã hủy'}">
                             Cập nhật trạng thái
                         </button>
-                        <button class=" btn btn-view-order" onclick="showOrderDetail()">Xem chi tiết</button>
+                        <a th:href="@{'/quantri/donhang/' + ${order.maDonHang}}">
+                            <button class=" btn btn-view-order" onclick="showOrderDetail()">Xem chi tiết</button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -52,7 +62,7 @@
                 <div class="modal-content">
                     <span class="close" onclick="closeUpdateStatusModal()">&times;</span>
                     <h2>Cập nhật trạng thái</h2>
-                    <form id="updateStatusForm" method="post" >
+                    <form id="updateStatusForm" action="/quantri/donhang/capnhantrangthai" method="post" >
                         <label for="orderStatus">Trạng thái đơn hàng:</label>
                         <select id="orderStatus" name="orderStatus">
                             <option value="0">Chưa xác nhận</option>
@@ -62,7 +72,7 @@
                             <option value="10">Hủy</option>
                         </select>
 
-                        <button type="submit" class="btn btn-save" onclick="saveOrderStatus()">Lưu</button>
+                        <button type="submit" class="btn btn-save">Lưu</button>
                         <button type="button" class="btn btn-cancel" onclick="closeUpdateStatusModal()">Hủy</button>
                         <input type="text" name="ID" id="ID" style="display: none;" value="">
                     </form>
@@ -72,5 +82,8 @@
         </div>
     </div>
 </body>
-
+<script>
+    var sidebar = document.getElementById("sidebarOrder");
+    sidebar.classList.add('active');
+</script>
 </html>

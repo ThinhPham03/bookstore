@@ -1,9 +1,14 @@
 package com.nhom1.bookstore.services;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nhom1.bookstore.entity.Book;
 import com.nhom1.bookstore.repositories.BookDAOController;
@@ -27,8 +32,8 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public void editBook(String currentID, Book newBook) {
-        bookDAOController.editBook(currentID, newBook);
+    public void editBook(Book newBook) {
+        bookDAOController.editBook(newBook);
     }
 
     @Override
@@ -38,12 +43,29 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public void deleteBook(String id) {
-        bookDAOController.deleteBook(id);;
+        bookDAOController.deleteBook(id);
     }
 
     @Override
     public void addBook(Book newBook) {
+        bookDAOController.addBook(newBook);
+    }
 
+    @Override
+    public String fileToFilePathConverter(MultipartFile file) {
+        String uploadFolder = "src\\main\\resources\\static\\img\\product";
+        String filePath = "/img/product/";
+        Path uploadPath = Paths.get(uploadFolder).toAbsolutePath().normalize();
+        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        Path targetLocation = uploadPath.resolve(fileName);
+        try {
+            Files.copy(file.getInputStream(), targetLocation);
+            filePath += fileName;
+            return filePath;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     @Override
@@ -52,5 +74,10 @@ public class BookServiceImpl implements BookService{
         Collections.sort(booklist, Comparator.comparingInt(Book::getDaBan).reversed());
 
         return booklist.subList(0, Math.min(5, booklist.size()));
+    }
+
+    @Override
+    public void updateSoldQuantity(String id, int daBan) {
+        bookDAOController.updateSoldQuantity(id, daBan);
     }
 }

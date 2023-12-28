@@ -24,57 +24,8 @@ const closeSidebar = () => {
     content.style.marginLeft = '0';
 }
 
-const setActiveLink = (link) => {
-    var sidebarLinks = document.querySelectorAll('.sidebar-link');
-    sidebarLinks.forEach(function (sidebarLink) {
-        sidebarLink.classList.remove('active');
-    });
-
-    // link.classList.add('active');
-}
-
-const switchContent = (contentType, event, link) => {
-    var contentDiv = document.getElementById('content');
-
-    contentDiv.innerHTML = ``;
-
-    var url = "/quantri/" +contentType;
-
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = () => {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            contentDiv.innerHTML = xhr.responseText;
-            setActiveLink(link);
-        }
-    };
-    xhr.open("GET", url, true);
-    xhr.send();
-
-    if (event) {
-        event.preventDefault();
-    }
-
-    return false;
-}
-
 const goToAdminHome = () => {
     window.location.href = "/quantri";
-}
-
-const showProductDetail = () => {
-    window.location.href = '/quantri/sanpham/'
-}
-
-const showOrderDetail = () => {
-    window.location.href = '/quantri/donhang/'
-}
-
-const directThem = () => {
-    window.location.href = "/quantri/sanpham/them"
-}
-
-const directChinhSua = () => {
-    window.location.href = "/quantri/sanpham/sua"
 }
 
 const closeOrderDetailModal = () => {
@@ -83,12 +34,12 @@ const closeOrderDetailModal = () => {
 }
 
 const openUpdateStatusModal = (event) => {
-    document.getElementById('updateStatusModal').style.display = 'block';
-    var clickedButton = event.currentTarget
-    console.log(clickedButton.id);
+    var clickedButton = event.currentTarget;
     document.getElementById("ID").value = clickedButton.id;
-    console.log(document.getElementById("ID").value);
-    console.log(window.href.location)
+    var updateStatusModal = document.getElementById('updateStatusModal')
+    updateStatusModal.style.display = 'block';
+    // updateStatusModal.acction = "/quantri/donhang/capnhantrangthai/" + clickedButton.id
+    console.log(document.getElementById("ID").value)
 }
 
 const closeUpdateStatusModal = () => {
@@ -96,17 +47,32 @@ const closeUpdateStatusModal = () => {
 }
 
 const saveOrderStatus = () => {
-    alert('Order status updated successfully!');
-    window.location.reload()
+    event.preventDefault(); // Ngăn chặn form submit mặc định
+
+    // Lấy giá trị được chọn từ dropdown
+    var orderStatus = document.getElementById("orderStatus").value;
+
+    // Lấy giá trị từ input ID
+    var orderID = document.getElementById("ID").value;
+
+    // Gửi dữ liệu đến server bằng Fetch API
+    fetch('/your-endpoint', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ orderID: orderID, orderStatus: orderStatus })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Dữ liệu đã gửi thành công:', data);
+        // Thực hiện các thao tác cần thiết sau khi gửi thành công
+    })
+    .catch(error => {
+        console.error('Lỗi khi gửi dữ liệu:', error);
+    });
+
     closeUpdateStatusModal();
-}
-
-const showAccountDetail = () => {
-    window.location.href = '/quantri/taikhoan/'
-}
-
-const openEditAccountModal = () => {
-    window.location.href = '/quantri/sanpham/sua'
 }
 
 const btnDeleteProduct = () => {

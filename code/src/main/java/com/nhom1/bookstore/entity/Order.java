@@ -17,7 +17,7 @@ public class Order {
         this.maDonHang = MaDonHang;
         this.idNguoiDat = nguoiDat;
         this.thoiGianDat = thoiGianDat;
-        this.trangThai = convertTrangThai(trangThai);
+        this.trangThai = convertTrangThaiInt(trangThai);
         this.thanhTien = thanhTien;
         this.idSachDau = cuonSachDau;
         this.soSanPham = soSanPham;
@@ -25,11 +25,11 @@ public class Order {
     public Order(String MaDonHang, String nguoiDat, int trangThai, String thanhTien) {
         this.maDonHang = MaDonHang;
         this.idNguoiDat = nguoiDat;
-        this.trangThai = convertTrangThai(trangThai);
+        this.trangThai = convertTrangThaiInt(trangThai);
         this.thanhTien = thanhTien;
     }
 
-    private String convertTrangThai(int trangThai) {
+    private String convertTrangThaiInt(int trangThai) {
         switch (trangThai) {
             case 0:
                 return "Chưa xác nhận";
@@ -44,44 +44,49 @@ public class Order {
         }
     }
 
+    public int convertTrangThaiString(String trangThai) {
+        switch (trangThai) {
+            case "Chưa xác nhận":
+                return 0;
+            case "Đã xác nhận":
+                return 1;
+            case "Đang vận chuyển":
+                return 2;
+            case "Đã hoàn thành":
+                return 3;
+            default:
+                return 10;
+        }
+    }
     public String getMaDonHang() {
         return maDonHang;
     }
-    public void setMaDonHang(String MaDonHang) {
-        this.maDonHang = MaDonHang;
+    public void setMaDonHang(String maDonHang) {
+        this.maDonHang = maDonHang;
     }
     public String getIdNguoiDat() {
         return idNguoiDat;
     }
-    public void setIdNguoiDat(String nguoiDat) {
-        this.idNguoiDat = nguoiDat;
+    public void setIdNguoiDat(String idNguoiDat) {
+        this.idNguoiDat = idNguoiDat;
     }
     public Date getThoiGianDat() {
         return thoiGianDat;
     }
-    public void setThoiGianDat(Date ThoiGianDat) {
-        this.thoiGianDat = ThoiGianDat;
+    public void setThoiGianDat(Date thoiGianDat) {
+        this.thoiGianDat = thoiGianDat;
     }
     public String getTrangThai() {
         return trangThai;
     }
     public void setTrangThai(int trangThai) {
-        this.trangThai = convertTrangThai(trangThai);
+        this.trangThai = convertTrangThaiInt(trangThai);
     }
     public String getThanhTien() {
         return thanhTien;
     }
     public void setThanhTien(String thanhTien) {
         this.thanhTien = thanhTien;
-    }
-    public String getFirstBook() {
-        return idSachDau;
-    }
-    public void setFirstBook(Book cuonSachDau) {
-        this.cuonSachDau = cuonSachDau;
-    }
-    public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
     }
     public String getIdSachDau() {
         return idSachDau;
@@ -101,4 +106,6 @@ public class Order {
     public void setSoSanPham(int soSanPham) {
         this.soSanPham = soSanPham;
     }
+
+    
 }

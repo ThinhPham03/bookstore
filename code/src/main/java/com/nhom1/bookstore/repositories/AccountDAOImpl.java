@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.nhom1.bookstore.entity.Account;
@@ -21,7 +22,14 @@ public class AccountDAOImpl implements AccountDAO{
 
     @Override
     public void deleteAccount(String id) {
-       
+        String sql = "Delete from TaiKhoan WHERE TenTaiKhoan = ?";
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, id);
+
+            statement.executeUpdate();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -59,16 +59,16 @@
                         <label for="address">Địa chỉ</label>
                         <input type="text" id="address" name="address" class="checkout-input" th:value="${account.diaChi}" required>
                     </div>
-                    <button type="submit" class="checkout-btn" onclick="postData()">Đặt hàng</button>
+                    <button type="submit" class="checkout-btn" onclick="postData(event)">Đặt hàng</button>
                 </form>
                 <div class="payment-method-box">
                     <h2>PHƯƠNG THỨC THANH TOÁN</h2>
                     <label>
-                        <input type="radio" name="payment-method" value="credit-card">
+                        <input type="radio" name="payment-method" value="cod" checked>
                         <img src="/img/cash.svg" alt="">Thanh toán khi nhận hàng (COD)
                     </label>
                     <label>
-                        <input type="radio" name="payment-method" value="paypal" checked>
+                        <input type="radio" name="payment-method" value="momo" checked>
                         <img src="/img/momo.svg" alt=""> Momo
                     </label>
                 </div>
@@ -79,23 +79,40 @@
     <footer th:include="footer :: footer" class="container footer-container"></footer>
 </body>
 <script src="/js/main.js"></script>
-
 <script>
-    function postData() {
-        // Lấy giá trị ID của table
-        var tableId = document.querySelector('.checkout-product-item').id;
+    function postData(event) {
+        event.preventDefault();
+        console.log("Button clicked");
+        var productItems = document.querySelectorAll('.checkout-product-item');
+        var quantityElements = document.querySelectorAll('.checkout-product-item-qty span');
+        var priceTransient = document.getElementById('divThanhTien').innerText;
+        var email = document.getElementById("email").value;
+        var phone = document.getElementById("phone").value;
+        var address = document.getElementById("address").value;
+        var paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
 
-        // Lấy giá trị số lượng
-        var soluong = document.querySelector('.checkout-product-item-qty span').innerText;
 
-        // Tạo đối tượng chứa dữ liệu để gửi lên server (có thể sử dụng thư viện Axios hoặc Fetch API)
+        var bookList = [];
+        var priceList = [];
+        productItems.forEach(function (item) {
+            var bookID = item.id
+            bookList.push(bookID);
+            var quantity= item.querySelector('.checkout-product-item-qty span').innerText;        
+            priceList.push(quantity)
+        });
+
         var data = {
-            tableId: tableId,
-            soluong: soluong
+            "bookList": bookList,
+            "priceList": priceList,
+            "price": priceTransient,
+            "phone": phone,
+            "address": address,
+            "paymentMethod": paymentMethod
         };
 
-        // Gửi dữ liệu lên server, ở đây là ví dụ sử dụng Fetch API
-        fetch('/goihang/thanhtoan', {
+        localStorage.removeItem("cart")
+
+        fetch('/giohang/thanhtoan', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -104,12 +121,13 @@
         })
         .then(response => response.json())
         .then(data => {
-            // Xử lý kết quả từ server nếu cần
             console.log(data);
         })
         .catch(error => {
             console.error('Error:', error);
+            console.log('Data sent to server:', data);
         });
+        window.location.href = "/taikhoan";
     }
 </script>
 </html>

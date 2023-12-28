@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.nhom1.bookstore.entity.Book;
 import com.nhom1.bookstore.services.BookService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class ManageBookController {
     private final BookService bookService;
@@ -18,9 +20,13 @@ public class ManageBookController {
     }
 
     @GetMapping("/quantri/sanpham")
-    public String getManageBook(Model model) {
-        List<Book> bookList = bookService.getBookList();
-        model.addAttribute("bookList", bookList);
-        return "admin_product";
+    public String manageBook(Model model, HttpSession session) {
+        Object isAdmin = session.getAttribute("isAdmin");
+        if(isAdmin != null && isAdmin.equals(Boolean.TRUE)) {
+            List<Book> bookList = bookService.getBookList();
+            model.addAttribute("bookList", bookList);
+            return "admin_product";
+        }
+        return "redirect:/dangnhap";
     }
 }

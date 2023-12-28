@@ -9,7 +9,8 @@ public interface OrderDAOController {
     List<Order> getOrderList();
     Order getOrder(String id);
     OrderDetail getOrderDetail(String id);
-    void editOrder(String currentID, Order newOrder);
-    void deleteOrder(String id);
+    void editStatusOrder(String currentID, int newStatus);
     List<Order> search(String tuKhoa);
+    void createOrder(Order newOrder);
+    void createOrderDetail(OrderDetail newOrderDetail);
 }

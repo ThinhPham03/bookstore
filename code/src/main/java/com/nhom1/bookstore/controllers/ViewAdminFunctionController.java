@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpSession;
 public class ViewAdminFunctionController {
 
     @GetMapping("/quantri")
-    public String getMethodName(HttpSession session) {
+    public String viewAdminFunction(HttpSession session) {
         Object isAdmin = session.getAttribute("isAdmin");
         if(isAdmin != null && isAdmin.equals(Boolean.TRUE)) {
             return "admin";

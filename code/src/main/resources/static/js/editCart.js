@@ -16,18 +16,15 @@ function addToCart() {
 
     var id = document.getElementById("ID").innerText;
     var soLuong = document.getElementById("quantityInput").value;
-    if(soLuong > 10) {
-        soLuong = 10;
-    }
+    var soTonKho = document.getElementById("quantityInput").max;
 
     for(i = 0; i < cart.length; i++) {
         if(cart[i].ID == id)  {
             var book = cart[cart.length-1];
             book.SoLuong = Number(book.SoLuong) + Number(soLuong); 
-            console.log(book.SoLuong);
-            if(book.SoLuong >= 10) {
-                book.SoLuong = 10;
-                alert("Số lượng tối đa đối với khách hàng cá nhân là 10");
+            if(book.SoLuong >= soTonKho) {
+                book.SoLuong = soTonKho;
+                alert("Đã quá số lượng tồn kho");
             }
             cart[cart.length-1] = book;
             isAdd = true;
@@ -53,25 +50,11 @@ function addToCart() {
     
         cart[cart.length] = book;
     }
+
+    if(isAdd) {
+        alert("Thêm vào giỏ hàng thành công")
+    }
     
     let json = JSON.stringify(cart);
     localStorage.setItem("cart", json);
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-    var quantityInputs = document.getElementsByClassName('product-info-quantity-input');
-
-    for (var i = 0; i < quantityInputs.length; i++) {
-        quantityInputs[i].addEventListener('input', function () {
-            var input = parseInt(this.value, 10);
-            console.log(input);
-            if (input >= 1 && input <= 10) {
-                this.value = input;
-            } else if (input <= 0 || isNaN(input)) {
-                this.value = 1;
-            } else if (input >= 10) {
-                this.value = 10;
-            }
-        });
-    }
-});

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nhom1.bookstore.services.AccountService;
+
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -18,7 +19,7 @@ public class LoginController {
     }
 
     @GetMapping("/dangnhap")
-    public String viewLogin() {
+    public String viewLogin(Model model) {
         return "login";
     }
 
@@ -28,23 +29,20 @@ public class LoginController {
         int ketqua = accountService.authentication(username, password);
         if (ketqua != 0) {
             if (ketqua >= 1) {
-                // model.addAttribute("message", "Tài khoản và mật khẩu đúng.");
                 session.setAttribute("loggedInUser", username);
-                
                 if(ketqua > 1) {
                     session.setAttribute("isAdmin", true);
                     return "redirect:/quantri";
                 } else{
                     session.setAttribute("isAdmin", false);
-                    // return "redirect:/taikhoan/"+ username;
-                    return "redirect:/trangchu";
+                    return "redirect:/taikhoan/thongtin";
                 }
             } else {
-                // model.addAttribute("message", "Tài khoản hoặc mật khẩu không chính xác.");
+                model.addAttribute("thongbao", "Tài khoản hoặc mật khẩu không chính xác.");
             }
         } else {
-            // model.addAttribute("message", "Tài khoản không tồn tại.");
+            model.addAttribute("thongbao", "Tài khoản không tồn tại.");
         }
-        return "redirect:/trangchu";
+        return "login";
     }
 }
