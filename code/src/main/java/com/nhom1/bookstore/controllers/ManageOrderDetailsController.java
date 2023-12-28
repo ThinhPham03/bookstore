@@ -18,19 +18,19 @@ import com.nhom1.bookstore.services.OrderService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class ViewOrderDetailsController {
+public class ManageOrderDetailsController {
     private final OrderService orderService;
     private final BookService bookService;
     private final AccountService accountService;
 
-    public ViewOrderDetailsController(OrderService orderService, BookService bookService, AccountService accountService) {
+    public ManageOrderDetailsController(OrderService orderService, BookService bookService, AccountService accountService) {
         this.orderService = orderService;
         this.bookService = bookService;
         this.accountService = accountService;
     }
 
     @GetMapping("/quantri/donhang/{id}")
-    public String viewPersonalOrder(@PathVariable("id") String id, Model model, HttpSession session) {
+    public String getOrderDetail(@PathVariable("id") String id, Model model, HttpSession session) {
         Object isAdmin = session.getAttribute("isAdmin");
         if(isAdmin != null && isAdmin.equals(Boolean.TRUE)) {
             Order order = orderService.getOrder(id);

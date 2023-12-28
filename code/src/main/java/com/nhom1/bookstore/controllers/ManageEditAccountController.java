@@ -11,10 +11,10 @@ import com.nhom1.bookstore.entity.Account;
 import com.nhom1.bookstore.services.AccountService;
 
 @Controller
-public class EditAccountController {
+public class ManageEditAccountController {
     private final AccountService accountService;
     
-    public EditAccountController(AccountService accountService) {
+    public ManageEditAccountController(AccountService accountService) {
         this.accountService = accountService;
     }
 

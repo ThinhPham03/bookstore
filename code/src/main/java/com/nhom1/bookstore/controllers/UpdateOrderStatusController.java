@@ -23,7 +23,7 @@ public class UpdateOrderStatusController {
     }
 
     @PostMapping("/quantri/donhang/capnhantrangthai")
-    public String register(HttpSession session,
+    public String updateOrderStatus(HttpSession session,
     @RequestParam("ID") String maDonHang,
     @RequestParam("orderStatus") String orderStatusRaw) {
         int orderStatus = Integer.parseInt(orderStatusRaw);

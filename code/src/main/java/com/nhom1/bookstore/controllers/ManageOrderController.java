@@ -37,6 +37,5 @@ public class ManageOrderController {
             return "admin_order";
         }
         return "redirect:/dangnhap";
-        
     }
 }

@@ -19,7 +19,7 @@ public class ManagePersonalAccountController {
     }
     
     @GetMapping("/taikhoan/thongtin")
-    public String viewPersonalAccount(HttpSession session, Model model) {
+    public String getPersonalAccount(HttpSession session, Model model) {
         Object loggedInUser = session.getAttribute("loggedInUser");
         if(loggedInUser != null) {
             Account account = accountService.getAccountNonPassword(loggedInUser.toString());

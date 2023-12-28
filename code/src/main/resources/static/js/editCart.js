@@ -19,14 +19,14 @@ function addToCart() {
     var soTonKho = document.getElementById("quantityInput").max;
 
     for(i = 0; i < cart.length; i++) {
-        if(cart[i].ID == id)  {
-            var book = cart[cart.length-1];
+        if(cart[i].ID === id)  {
+            var book = cart[i];
             book.SoLuong = Number(book.SoLuong) + Number(soLuong); 
             if(book.SoLuong >= soTonKho) {
                 book.SoLuong = soTonKho;
                 alert("Đã quá số lượng tồn kho");
             }
-            cart[cart.length-1] = book;
+            cart[i] = book;
             isAdd = true;
             break;
         } else{
@@ -35,7 +35,7 @@ function addToCart() {
 
     }
 
-    if(!isAdd) {
+    if(isAdd === false) {
         var ten = document.getElementById("Ten").innerText;
         var hinh = document.getElementById("Hinh").getAttribute("src");
         var gia = document.getElementById("Gia").innerText;
@@ -49,6 +49,7 @@ function addToCart() {
         }
     
         cart[cart.length] = book;
+        isAdd = true;
     }
 
     if(isAdd) {

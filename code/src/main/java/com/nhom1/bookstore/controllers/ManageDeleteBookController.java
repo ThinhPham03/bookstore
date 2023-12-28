@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.nhom1.bookstore.services.BookService;
 
 @Controller
-public class DeleteBookController {
+public class ManageDeleteBookController {
     private final BookService bookService;
 
-    public DeleteBookController(BookService bookService) {
+    public ManageDeleteBookController(BookService bookService) {
         this.bookService = bookService;
     }
 
     @GetMapping("/quantri/sanpham/xoa/{id}")
-    public String viewEditAccount(@PathVariable("id") String id) {
+    public String deleteBook(@PathVariable("id") String id) {
         bookService.deleteBook(id);
         return "redirect:/quantri/sanpham"; 
     }

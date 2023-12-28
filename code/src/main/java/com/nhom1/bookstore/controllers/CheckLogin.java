@@ -25,7 +25,7 @@ public class CheckLogin {
             } else{
                 model.addAttribute("adminSection", true);
                 model.addAttribute("accountSection", false);
-                model.addAttribute("accountID", loggedInUser.toString());
+                model.addAttribute("accountID", loggedInUser.toString()); 
             }
         } else{
             model.addAttribute("userOptionsSection", false);
