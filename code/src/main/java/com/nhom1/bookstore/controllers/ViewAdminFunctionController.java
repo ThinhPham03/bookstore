@@ -16,5 +16,4 @@ public class ViewAdminFunctionController {
         }
         return "redirect:/trangchu"; 
     }
-    
 }

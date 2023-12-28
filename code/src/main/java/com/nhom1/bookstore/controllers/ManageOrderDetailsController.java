@@ -18,12 +18,12 @@ import com.nhom1.bookstore.services.OrderService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class ViewOrderDetailsController {
+public class ManageOrderDetailsController {
     private final OrderService orderService;
     private final BookService bookService;
     private final AccountService accountService;
 
-    public ViewOrderDetailsController(OrderService orderService, BookService bookService, AccountService accountService) {
+    public ManageOrderDetailsController(OrderService orderService, BookService bookService, AccountService accountService) {
         this.orderService = orderService;
         this.bookService = bookService;
         this.accountService = accountService;

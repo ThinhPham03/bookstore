@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.nhom1.bookstore.services.BookService;
 
 @Controller
-public class DeleteBookController {
+public class ManageDeleteBookController {
     private final BookService bookService;
 
-    public DeleteBookController(BookService bookService) {
+    public ManageDeleteBookController(BookService bookService) {
         this.bookService = bookService;
     }
 
