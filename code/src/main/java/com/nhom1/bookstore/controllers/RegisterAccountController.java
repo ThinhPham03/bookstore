@@ -23,12 +23,12 @@ public class RegisterAccountController {
     }
 
     @PostMapping("/dangky")
-    public String register(Model model, CheckEmail checkEmail,
+    public String register(Model model,
     @RequestParam("register-email") String email, 
     @RequestParam("register-username") String username, 
     @RequestParam("register-password") String password1, 
     @RequestParam("confirm-password") String password2) {
-        if(checkEmail.checkEmail(accountService,email)) {
+        if(checkEmail(email)) {
             if(accountService.checkUsername(username)){
                 if(password1.equals(password2)) {
                     accountService.registerAccount(new Account(username, email, password1));
@@ -44,6 +44,14 @@ public class RegisterAccountController {
         } else{
             model.addAttribute("thongbao", "Email này đã được sử dụng");
             return "redirect:/dangky";
+        }
+    }
+
+    boolean checkEmail(String email) {
+        if(accountService.checkEmail(email)) {
+            return false;
+        } else{
+            return true;
         }
     }
 }
