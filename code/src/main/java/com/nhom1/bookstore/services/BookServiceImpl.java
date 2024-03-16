@@ -14,8 +14,8 @@ import com.nhom1.bookstore.entity.Book;
 import com.nhom1.bookstore.repositories.BookDAOController;
 
 @Service
-public class BookServiceImpl implements BookService{
-        private final BookDAOController bookDAOController;
+public class BookServiceImpl implements BookService {
+    private final BookDAOController bookDAOController;
 
     public BookServiceImpl(BookDAOController bookDAOController) {
         this.bookDAOController = bookDAOController;
@@ -80,4 +80,16 @@ public class BookServiceImpl implements BookService{
     public void updateSoldQuantity(String id, int daBan) {
         bookDAOController.updateSoldQuantity(id, daBan);
     }
+
+    // @Override
+    // public boolean bookExists(String name, String author, String publisher) {
+    // List<Book> existingBooks = bookDAOController.search(name);
+    // for (Book book : existingBooks) {
+    // if (book.getTacGia().equals(author) &&
+    // book.getNhaCungCap().equals(publisher)) {
+    // return true;
+    // }
+    // }
+    // return false;
+    // }
 }
